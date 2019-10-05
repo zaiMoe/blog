@@ -24,7 +24,10 @@ module.exports = {
   ],
   themeConfig: {
     lastUpdated: '上次更新时间', // 显示更新时间
-    editLinks: true, // 显示编辑提示
+    docsDir: 'docs',
+    docsBranch: 'master',
+    editLinks: true,
+    editLinkText: '帮助我们改善此页面！',
     repo: 'https://github.com/zaiMoe/blog', // blog地址
     repoLabel: 'GitHub', // 提示名称
     nav,
