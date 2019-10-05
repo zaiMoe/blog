@@ -7,7 +7,7 @@ const {sidebar, nav} = require('./utils');
 
 module.exports = {
   evergreen: true,
-  base: '/', // 根路径
+  base: '/blog/', // 根路径
   locales: {
     '/': {
       lang: 'zh-CN',
@@ -25,7 +25,7 @@ module.exports = {
   themeConfig: {
     lastUpdated: '上次更新时间', // 显示更新时间
     editLinks: true, // 显示编辑提示
-    repo: 'https://github.com/Mulander-J/Wiki1001Pro.git', // blog地址
+    repo: 'https://github.com/zaiMoe/blog', // blog地址
     repoLabel: 'GitHub', // 提示名称
     nav,
     sidebar

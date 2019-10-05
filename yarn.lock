@@ -882,9 +882,9 @@
     lodash.throttle "^4.1.1"
 
 "@vuepress/plugin-back-to-top@^1.0.0-rc.1":
-  version "1.0.0-rc.1"
-  resolved "https://registry.npm.taobao.org/@vuepress/plugin-back-to-top/download/@vuepress/plugin-back-to-top-1.0.0-rc.1.tgz#91fb693f3c7d7a9d8019842bb061ad756445e4ca"
-  integrity sha1-kftpPzx9ep2AGYQrsGGtdWRF5Mo=
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/@vuepress/plugin-back-to-top/download/@vuepress/plugin-back-to-top-1.1.0.tgz#c765f1be1b2bd04956c2ca627d3737ecde6ac337"
+  integrity sha1-x2Xxvhsr0ElWwspifTc37N5qwzc=
   dependencies:
     lodash.debounce "^4.0.8"
 
@@ -896,20 +896,13 @@
     cross-spawn "^6.0.5"
 
 "@vuepress/plugin-medium-zoom@^1.0.0-rc.1":
-  version "1.0.0-rc.1"
-  resolved "https://registry.npm.taobao.org/@vuepress/plugin-medium-zoom/download/@vuepress/plugin-medium-zoom-1.0.0-rc.1.tgz#78b81aad55621cf192667421eb73497cfe265068"
-  integrity sha1-eLgarVViHPGSZnQh63NJfP4mUGg=
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/@vuepress/plugin-medium-zoom/download/@vuepress/plugin-medium-zoom-1.1.0.tgz#c95560197fff23500b049278584b85f4f3a0ed3d"
+  integrity sha1-yVVgGX//I1ALBJJ4WEuF9POg7T0=
   dependencies:
-    medium-zoom "^0.4.0"
+    medium-zoom "^1.0.4"
 
-"@vuepress/plugin-nprogress@^1.0.0-rc.1":
-  version "1.0.0-rc.1"
-  resolved "https://registry.npm.taobao.org/@vuepress/plugin-nprogress/download/@vuepress/plugin-nprogress-1.0.0-rc.1.tgz#1e5a07ce11d72d512afa2311f10043d1a0060f46"
-  integrity sha1-HloHzhHXLVEq+iMR8QBD0aAGD0Y=
-  dependencies:
-    nprogress "^0.2.0"
-
-"@vuepress/plugin-nprogress@^1.1.0":
+"@vuepress/plugin-nprogress@^1.0.0-rc.1", "@vuepress/plugin-nprogress@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/@vuepress/plugin-nprogress/download/@vuepress/plugin-nprogress-1.1.0.tgz#ca7106adc7016ed0d90a22555066c11da597ef59"
   integrity sha1-ynEGrccBbtDZCiJVUGbBHaWX71k=
@@ -2744,7 +2737,7 @@ envify@^4.0.0:
 
 envinfo@^7.2.0:
   version "7.4.0"
-  resolved "https://registry.npm.taobao.org/envinfo/download/envinfo-7.4.0.tgz#bef4ece9e717423aaf0c3584651430b735ad6630"
+  resolved "https://registry.npm.taobao.org/envinfo/download/envinfo-7.4.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fenvinfo%2Fdownload%2Fenvinfo-7.4.0.tgz#bef4ece9e717423aaf0c3584651430b735ad6630"
   integrity sha1-vvTs6ecXQjqvDDWEZRQwtzWtZjA=
 
 errno@^0.1.3, errno@~0.1.7:
@@ -4405,10 +4398,10 @@ media-typer@0.3.0:
   resolved "https://registry.npm.taobao.org/media-typer/download/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
 
-medium-zoom@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.npm.taobao.org/medium-zoom/download/medium-zoom-0.4.0.tgz#8e13c9b754903c0c903220611af0d3cd373a4222"
-  integrity sha1-jhPJt1SQPAyQMiBhGvDTzTc6QiI=
+medium-zoom@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npm.taobao.org/medium-zoom/download/medium-zoom-1.0.4.tgz#b1063093f81151a19989489589edf28e6090630c"
+  integrity sha1-sQYwk/gRUaGZiUiVie3yjmCQYww=
 
 mem@^4.0.0:
   version "4.3.0"
@@ -4617,17 +4610,17 @@ move-concurrently@^1.0.1:
 
 ms@2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/ms/download/ms-2.0.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fms%2Fdownload%2Fms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
+  resolved "https://registry.npm.taobao.org/ms/download/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
 ms@2.1.1:
   version "2.1.1"
-  resolved "https://registry.npm.taobao.org/ms/download/ms-2.1.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fms%2Fdownload%2Fms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
+  resolved "https://registry.npm.taobao.org/ms/download/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
   integrity sha1-MKWGTrPrsKZvLr5tcnrwagnYbgo=
 
 ms@^2.1.1:
   version "2.1.2"
-  resolved "https://registry.npm.taobao.org/ms/download/ms-2.1.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fms%2Fdownload%2Fms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
+  resolved "https://registry.npm.taobao.org/ms/download/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=
 
 multicast-dns-service-types@^1.1.0:
@@ -6664,9 +6657,9 @@ terser-webpack-plugin@^1.4.1:
     worker-farm "^1.7.0"
 
 terser@^4.1.2:
-  version "4.3.6"
-  resolved "https://registry.npm.taobao.org/terser/download/terser-4.3.6.tgz#3a36ae197d4470e11069557b4a4bd712f84f998d"
-  integrity sha1-OjauGX1EcOEQaVV7SkvXEvhPmY0=
+  version "4.3.7"
+  resolved "https://registry.npm.taobao.org/terser/download/terser-4.3.7.tgz?cache=0&sync_timestamp=1570283882916&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fterser%2Fdownload%2Fterser-4.3.7.tgz#9dafb4a6730868608c9c7af96d44182f4107b29f"
+  integrity sha1-na+0pnMIaGCMnHr5bUQYL0EHsp8=
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
@@ -7209,7 +7202,7 @@ webpack-merge@^4.1.2:
 
 webpack-sources@^1.1.0, webpack-sources@^1.4.0, webpack-sources@^1.4.1:
   version "1.4.3"
-  resolved "https://registry.npm.taobao.org/webpack-sources/download/webpack-sources-1.4.3.tgz?cache=0&sync_timestamp=1568302837530&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-sources%2Fdownload%2Fwebpack-sources-1.4.3.tgz#eedd8ec0b928fbf1cbfe994e22d2d890f330a933"
+  resolved "https://registry.npm.taobao.org/webpack-sources/download/webpack-sources-1.4.3.tgz?cache=0&sync_timestamp=1568302998163&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-sources%2Fdownload%2Fwebpack-sources-1.4.3.tgz#eedd8ec0b928fbf1cbfe994e22d2d890f330a933"
   integrity sha1-7t2OwLko+/HL/plOItLYkPMwqTM=
   dependencies:
     source-list-map "^2.0.0"
