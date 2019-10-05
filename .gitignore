@@ -3,4 +3,4 @@ node_modules
 *.log
 types
 .idea
-*.vuepress/dist/
+docs/.vuepress/dist/
