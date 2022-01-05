@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes marqueeAnim {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+
+        .marquee-content{
+            animation: marqueeAnim 5s linear 0s infinite;
+        }
+
+        .box {
+            display: inline-block;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border: 5px solid #333;
+            font-size: 0;
+        }
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: inherit;
+            width: inherit;
+            background: #fc4;
+            font-size: 30px;
+            text-align: center;
+        }
+        .content-copy {
+            top: 100%;
+        }
+    </style>
+</head>
+<body>
+<div style="margin-top: 400px;text-align: center">
+    <div class="box">
+        <div class="content marquee-content">block 1</div>
+        <div class="content content-copy marquee-content" style="border-top: 1px solid #c4f; ">block 1</div>
+    </div>
+    <div class="box" style="overflow: hidden">
+        <div class="content marquee-content">block 1</div>
+        <div class="content content-copy marquee-content">block 1</div>
+    </div>
+</div>
+
+</body>
+</html>
