@@ -13,10 +13,11 @@
             0% { transform: translateY(0); }
             100% { transform: translateY(-100%); }
         }
-
-
         .marquee-content{
             animation: marqueeAnim 5s linear 0s infinite;
+        }
+        .marquee-content:hover {
+            animation-play-state: paused;
         }
 
         .box {
@@ -27,30 +28,38 @@
             border: 5px solid #333;
             font-size: 0;
         }
-        .content {
+        .item-wrap {
             position: absolute;
             top: 0;
             left: 0;
+            height: inherit;
+            width: inherit;
+        }
+        .item {
             height: inherit;
             width: inherit;
             background: #fc4;
             font-size: 30px;
             text-align: center;
         }
-        .content-copy {
-            top: 100%;
+        .item-copy {
+            /*background: #cf4;*/
         }
     </style>
 </head>
 <body>
 <div style="margin-top: 400px;text-align: center">
     <div class="box">
-        <div class="content marquee-content">block 1</div>
-        <div class="content content-copy marquee-content" style="border-top: 1px solid #c4f; ">block 1</div>
+        <div class="item-wrap marquee-content">
+            <div class="item">block 1</div>
+            <div class="item item-copy" style="border-top: 1px solid #c4f; ">block 1</div>
+        </div>
     </div>
     <div class="box" style="overflow: hidden">
-        <div class="content marquee-content">block 1</div>
-        <div class="content content-copy marquee-content">block 1</div>
+        <div class="item-wrap marquee-content">
+            <div class="item">block 1</div>
+            <div class="item item-copy">block 1</div>
+        </div>
     </div>
 </div>
 

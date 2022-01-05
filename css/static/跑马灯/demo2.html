@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            margin-top: 400px;
+            text-align: center
+        }
+
+        .box {
+            display: inline-block;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border: 5px solid #333;
+            font-size: 0;
+        }
+        .item-wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: auto;
+            width: inherit;
+        }
+        .item {
+            height: 300px;
+            width: inherit;
+            background: #fc4;
+            font-size: 30px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .item-copy {
+            /*background: #cf4;*/
+        }
+    </style>
+</head>
+<body>
+<div id="container" style="--height: -100%">
+    <div class="box">
+        <div class="item-wrap marquee-content">
+            <div class="item">block 1<br/>block 2<br/>block 1<br/>block 2<br/>block 1<br/>block 2<br/></div>
+            <div class="item item-copy" style="border-top: 1px solid #c4f; ">block 1<br/>block 2<br/>block 1<br/>block 2<br/>block 1<br/>block 2<br/></div>
+        </div>
+    </div>
+    <div class="box" style="overflow: hidden">
+        <div class="item-wrap marquee-content">
+            <div class="item">block 1<br/>block 2<br/>block 1<br/>block 2<br/>block 1<br/>block 2<br/></div>
+            <div class="item item-copy">block 1<br/>block 2<br/>block 1<br/>block 2<br/>block 1<br/>block 2<br/></div>
+        </div>
+    </div>
+</div>
+
+<script>
+let box = document.querySelector('.box');
+let item = document.querySelector('.item');
+let boxHeight = box.clientHeight;
+let contentHeight = item.clientHeight;
+let cssvar = contentHeight + contentHeight - boxHeight;
+document.getElementById('container').setAttribute('style', `--height: -${cssvar}px`)
+</script>
+
+</body>
+
+<style>
+    @keyframes marqueeAnim {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(var(--height)); }
+    }
+    .marquee-content{
+        animation: marqueeAnim 5s linear 0s infinite;
+    }
+    .marquee-content:hover {
+        animation-play-state: paused;
+    }
+</style>
+</html>
