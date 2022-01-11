@@ -16,4 +16,5 @@
 
 
 ## typescript
+- [ts知识点记录](./typescript/ts知识点记录.md)
 - [逆变和协变](./typescript/逆变和协变.md)
