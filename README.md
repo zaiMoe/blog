@@ -9,6 +9,7 @@
 
 ### js
 - [js中不常用api](./js/js中不常用api.md)
+- [js中不常用api](./js/浏览器的复制.md)
 
 ### typescript
 - [ts知识点记录](./typescript/ts知识点记录.md)
