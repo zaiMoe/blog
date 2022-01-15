@@ -21,4 +21,6 @@
 - [流程图-两点之间的避障功能](./frontend-practice/流程图-两点之间的避障功能.md)
 
 ### 工程化
-- [vite浅析](./develop/vite浅析.md)
+- [vite浅析](./develop/vite/vite浅析.md)
+- [webpack、rollup、vite的比较](./develop/webpack/webpack输出文件依赖图的插件.md)
+- [webpack、rollup、vite的比较](./develop/webpack/webpack、rollup、vite的比较.md)
