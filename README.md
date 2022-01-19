@@ -24,6 +24,7 @@
 - [vite浅析](./develop/vite/vite浅析.md)
 - [webpack、rollup、vite的比较](./develop/webpack/webpack输出文件依赖图的插件.md)
 - [webpack、rollup、vite的比较](./develop/webpack/webpack、rollup、vite的比较.md)
+- [pnpm 浅析](./develop/other/pnpm.md)
 
 ### git
 - [git设置多账号](./git/git设置多账号.md)
