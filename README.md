@@ -22,9 +22,14 @@
 
 ### 工程化
 - [vite浅析](./develop/vite/vite浅析.md)
-- [webpack、rollup、vite的比较](./develop/webpack/webpack输出文件依赖图的插件.md)
+- [webpack输出文件依赖图的插件](./develop/webpack/webpack输出文件依赖图的插件.md)
 - [webpack、rollup、vite的比较](./develop/webpack/webpack、rollup、vite的比较.md)
 - [pnpm 浅析](./develop/other/pnpm.md)
+- [monorepo项目实践](./develop/monorepo/monorepo项目实践.md)
+
+#### 性能
+- [查内存泄漏](./develop/performance/查内存泄漏.md)
+- [来一打前端优化](./develop/performance/来一打前端优化.md)
 
 ### git
 - [git设置多账号](./git/git设置多账号.md)
