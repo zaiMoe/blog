@@ -1,6 +1,7 @@
 # pnpm 浅析
 
-pnpm 因为其极快的安装速度，更加节省磁盘空间，同时还解决了 npm 和 yarn 的一些问题，而备受关注。至于有多快可以看一下看一下官方网给的 Benchmark
+pnpm 因为其极快的安装速度，更加节省磁盘空间，同时还解决了 npm 和 yarn 的一些问题，而备受关注。
+至于有多快可以看一下看一下官方网给的 [Benchmark](https://github.com/pnpm/pnpm)
 
 ### 常用命令
 ```shell
@@ -27,7 +28,7 @@ pnpm dlx name	  # 等于 npx
 2. Phantom dependency
 3. doppelgangers dependency
 
-以上的问题都是当前 yarn 和 npm 存在的，详细可以阅读：node_modules 困境
+以上的问题都是当前 yarn 和 npm 存在的，详细可以阅读：[node_modules 困境](https://zhuanlan.zhihu.com/p/137535779)
 
 #### pnpm 的安装解析
 我们以安装 [is-odd](https://github.com/i-voted-for-trump/is-odd/blob/master/package.json) 
