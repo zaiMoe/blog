@@ -26,10 +26,12 @@
 - [webpack、rollup、vite的比较](./develop/webpack/webpack、rollup、vite的比较.md)
 - [pnpm 浅析](./develop/other/pnpm.md)
 - [monorepo项目实践](./develop/monorepo/monorepo项目实践.md)
+- [web安全](./develop/browser/web安全.md)
 
 #### 性能
 - [查内存泄漏](./develop/performance/查内存泄漏.md)
 - [来一打前端优化](./develop/performance/来一打前端优化.md)
+
 
 ### git
 - [git设置多账号](./git/git设置多账号.md)
