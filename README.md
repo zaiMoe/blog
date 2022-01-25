@@ -26,7 +26,10 @@
 - [webpack、rollup、vite的比较](./develop/webpack/webpack、rollup、vite的比较.md)
 - [pnpm 浅析](./develop/other/pnpm.md)
 - [monorepo项目实践](./develop/monorepo/monorepo项目实践.md)
+
+### ~~（面试）~~基础知识 
 - [web安全](./develop/browser/web安全.md)
+- [web安全](./develop/browser/浏览器基础知识.md)
 
 #### 性能
 - [查内存泄漏](./develop/performance/查内存泄漏.md)
