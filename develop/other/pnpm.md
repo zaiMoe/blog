@@ -1,7 +1,9 @@
 # pnpm 浅析
 
-pnpm 因为其极快的安装速度，更加节省磁盘空间，同时还解决了 npm 和 yarn 的一些问题，而备受关注。
-至于有多快可以看一下看一下官方网给的 [Benchmark](https://github.com/pnpm/pnpm)
+2021年的新星 pnpm， 因为其极快的安装速度，更加节省磁盘空间，同时还解决了 npm 和 yarn 的一些问题，而备受关注。
+至于有多快可以看一下看一下官方网给的 [Benchmark](https://github.com/pnpm/pnpm)。
+
+开始尝尝鲜！
 
 ### 常用命令
 
@@ -17,6 +19,8 @@ pnpm up -i   # 选择更新
 pnpm exec name   # 执行项目范围的 shell
 pnpm dlx name   # 等于 npx
 ```
+
+基本上和 npm 的命令差别不大。
 
 ### pnpm 原理
 
@@ -71,8 +75,7 @@ pnpm dlx name   # 等于 npx
 
 ![](./img/img5.png)
 
-这是一种 `CSA`（Content-addressable storage）的存储方式，他和上面文件其实是一样的，只是通过硬连接的方式，
-起的文件名不同而已，我们可以通过命令直接查看文件内容
+这是一种叫 [`CSA`（Content-addressable storage）](https://en.wikipedia.org/wiki/Content-addressable_storage) 的存储方式，他和上面文件其实是一样的，只是通过硬连接的方式，文件的命名不同而已，我们可以通过命令直接查看文件内容
 
 ![](./img/img6.png)
 
