@@ -50,46 +50,6 @@ const b = a; // OK
 
 两者最大的区别就是unknown只是个top type(任何类型都是他的subtype），而any即是top type又是 bottom type（他是任何类型的subtype), 这导致any基本上就是放弃了任何类型检查。
 
-### enum / as const / const enum
-
-#### enum
-
-枚举类型，创建一个命名空间的，可以有[数字枚举](https://www.typescriptlang.org/docs/handbook/enums.html#numeric-enums)或者[字符串枚举](https://www.typescriptlang.org/docs/handbook/enums.html#string-enums)
-
-例如：
-
-```typescript
-enum Color {
-  green = '#0f0',
-  blue = '#00f'
-}
-
-// 编译后
-"use strict";
-var Color;
-(function (Color) {
-    Color["green"] = "#0f0";
-    Color["blue"] = "#00f";
-})(Color || (Color = {}));
-
-// 可以直接作为 类型 使用
-// error: Type '{ green: string; red: string; }' is not assignable to type 'Color'.
-const newColor: Color = {
-    green: Color.green,
-    red: '#'
-}
-```
-
-#### const enum
-
-编译阶段会删除这个枚举， 使用的地方直接用具体的值
-
-#### as const
-
-#### 参考
-
-[Enum vs As Const](https://stackoverflow.com/questions/66862421/enum-vs-as-const)
-
 ### 分布式条件类型
 
 #### naked type parameter（裸类型）

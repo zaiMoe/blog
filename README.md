@@ -14,6 +14,7 @@
 ### typescript
 - [ts知识点记录](./typescript/ts知识点记录.md)
 - [逆变和协变](./typescript/逆变和协变.md)
+- [Enum and As Const](./typescript/enum&as_const.md)
 
 ### 一些实践
 - [前端换肤](./frontend-practice/前端换肤.md)
