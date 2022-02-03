@@ -1,5 +1,26 @@
 # vi / vim
 
+### 配色设置
+
+1. 选择 vim 自带的主题： 参考 <https://www.jianshu.com/p/4eb71eada87d>
+2. 在 [vimcolorschemes](https://vimcolorschemes.com/) 上找一个
+
+下面以 vimcolorschemes 上的 [onedark](https://github.com/joshdick/onedark.vim) 为例
+
+1. 将 github 上 `colors/onedark.vim` 复制到 `~/.vim/colors/`
+2. 将 github 上 `autoload/onedark.vim` 复制到 `~/.vim/autoload/`
+3. `touch ~/.vimrc`
+4. 编辑 `.vimrc`, 输入
+
+```bash
+syntax on
+colorscheme onedark
+```
+
+> 主要就是 readme 中的说明书即可。
+
+如果打开的时候遇到报错，确保配置是从 github 上下载的最新文件，一开始 github 打不开，从 gitee 上下载的文件，有奇怪的报错，后面从新下载就解决了
+
 ## vi
 
 ### 标准模式
