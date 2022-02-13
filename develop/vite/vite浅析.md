@@ -23,7 +23,7 @@
 
 和平时用webpack打包时的写法比较
 
-```
+```typescript
 // esm支持的引入的方式
 // 1. 支持除 绝对路径，相对路径 的使用外，还支持url的方式引入
 // 2. 需要完整后缀
@@ -50,24 +50,24 @@ export { a as b }
 
 [例子代码](https://gitee.com/zaiMoe/simple-vite/tree/master/esm)
 
-```
+```html
 // index.html
 <body>
-    <div id="app"></div>
-    <script type="module" src="./index.js"></script>
+        <div id="app"></div>
+        <script type="module" src="./index.js"></script>
 </body>
 
 // index.js
-import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.esm.browser.js'
-new Vue({
-    el: '#app',
-    template: `<div>
-        <h1>{{ message }}</h1>
-        <input v-model="message">
-    </div>`,
-    data: {
-      message: 'Hello Vue.js!'
-    }
+import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.esm.browser.js'
+new Vue({
+        el: '#app',
+        template: `<div>
+                <h1>{{ message }}</h1>
+                <input v-model="message">
+        </div>`,
+        data: {
+            message: 'Hello Vue.js!'
+        }
 })
 ```
 
@@ -85,8 +85,8 @@ new Vue({
 - 会有大量的请求，即使上`http`缓存也不是特别好，所以不建议生产环境直接使用，而是用其他工具打包，vite提供的解决方案是用 `rollup` 打包
 - 只能加载js代码，不支持其他资源，如css、图片等
 
-```
-import 'https://necolas.github.io/normalize.css/latest/normalize.css'
+```typescript
+import 'https://necolas.github.io/normalize.css/latest/normalize.css'
 ```
 
 ![](img-viteite2.png)
@@ -97,15 +97,15 @@ import 'https://necolas.github.io/normalize.css/latest/normalize.css'
 
 用过 `webpack` 的都知道，我们会用 [`loader`](https://webpack.docschina.org/concepts/loaders/) 来处理非 `.js` 的文件，同样，对于 `esm` 请求的文件，我们也可以做同样的处理，比如加载 `.css` 文件：
 
-```
+```typescript
 // css-loader/style-loader 
-function styleLoader(code) {
-  return `
-        const css = ${JSON.stringify(code)}
-        const style = document.createElement('style')
-        style.innerHTML = css
-        document.head.appendChild(style)
-      `
+function styleLoader(code) {
+    return `
+                const css = ${JSON.stringify(code)}
+                const style = document.createElement('style')
+                style.innerHTML = css
+                document.head.appendChild(style)
+            `
 }
 ```
 
@@ -113,10 +113,10 @@ function styleLoader(code) {
 
 与上面一样，对于 `.ts` 文件，我们可以用类似 `babel-loader`、`ts-loader`的方式，进行处理，这里我们用 `esbuild`转换 `ts` 文件，速度会更快
 
-```
-const esBuild = require('esbuild')
+```typescript
+const esBuild = require('esbuild')
 function transformTS (code) {
-    const result = esBuild.transformSync(code, { loader: 'ts' })
+    const result = esBuild.transformSync(code, { loader: 'ts' })
     retrun result.code
 }
 ```
@@ -125,15 +125,15 @@ function transformTS (code) {
 
 > 裸模块指不带 `/`，`./`，`../` 等开头的模块，也就是如请求 node_modules 的模块
 
-```
-import 'normalize.css' // 如果直接请求一个裸模块，浏览器会报错
+```typescript
+import 'normalize.css' // 如果直接请求一个裸模块，浏览器会报错
 ```
 
 ![](img-viteite3.png)
 
 对于裸模块，我们可以在响应一个模块前，处理其中依赖的裸模块，添加如 `/@modules/` 的表示，这样在下次请求的时候，可以根据这个标识，从 `node_modules` 中返回对应的代码
 
-```
+```typescript
 // 修改代码中的 裸模块 请求
 function rewriteImports(code) {
   return code.replace(/ from ['"](.*)['"]/g, function (fragment, moduleName) {
@@ -243,7 +243,7 @@ vue文件需要写完整路径和后缀，如/a,/a/,/a/index都是不合法的�
 `~`是 webpack 的语法，不是标准的 esm 导入方式。
 在处理别名的时候，可以这么写
 
-```
+```typescript
 {
     alias: [
     { find: /^~@src/, replacement:  './src'} 

@@ -139,7 +139,7 @@ contenthash：跟文件内容本身相关，根据文件内容创建出唯一has
 
 所以需要在业务代码中加入：
 
-```
+```typescript
 if(module.hot) {
     module.hot.accept('./hello.js', function() {
         // ...
@@ -227,7 +227,7 @@ webpack会进行构建，然后启动开发服务器，请求服务器时直接�
 ![](./img/webpack-vite.png)
 三次请求，没有query的时候，也就是请求vue文件的时候，会处理后返回下面的代码和组件的配置对象`__script`
 
-```
+```typescript
 import { updateStyle } from "/vite/hmr"
 updateStyle("c44b8200-0", "/App.vue?type=style&index=0")
 __script.__scopeId = "data-v-c44b8200"
