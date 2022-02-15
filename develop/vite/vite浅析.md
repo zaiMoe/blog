@@ -44,7 +44,7 @@ export { a as b }
 1. 关于要加后缀的讨论，[见这篇讨论](https://www.zhihu.com/question/453620623/answer/1829159627)
 2. 一些特点
 
-![](img-viteite1.png)
+![](./img-vite/vite1.png)
 
 #### esm 使用
 
@@ -89,7 +89,7 @@ new Vue({
 import 'https://necolas.github.io/normalize.css/latest/normalize.css'
 ```
 
-![](img-viteite2.png)
+![](./img-vite/vite2.png)
 
 ### 改造上面 esm 使用的例子
 
@@ -129,7 +129,7 @@ function transformTS (code) {
 import 'normalize.css' // 如果直接请求一个裸模块，浏览器会报错
 ```
 
-![](img-viteite3.png)
+![](img-vite/vite3.png)
 
 对于裸模块，我们可以在响应一个模块前，处理其中依赖的裸模块，添加如 `/@modules/` 的表示，这样在下次请求的时候，可以根据这个标识，从 `node_modules` 中返回对应的代码
 
@@ -164,7 +164,7 @@ function resolvePkgFile(filePath) {
 
 ##### 更加完整的例子
 
-![](img-viteite4.png)
+![](./img-vite/vite4.png)
 
 [代码在这里](https://gitee.com/zaiMoe/simple-vite/tree/master)
 
@@ -188,17 +188,17 @@ function resolvePkgFile(filePath) {
 
 来看一张熟悉的图
 
-![](img-viteite5.png)
+![](./img-vite/vite5.png)
 
 这就是过去构建工具所采用的方式，将大量文件及其依赖构建成少了 bundle，这也是 webpack 项目越大越卡顿的原因，当冷启动开发服务器时，基于打包器的方式启动必须优先抓取并构建你的整个应用，然后才能提供服务。随着项目的增长，打包构建速度越来越慢。
 
-![](img-viteite6.png)
+![](D:\frontend\temporary-blog\develop\vite\vite浅析.assets\vite6.png)
 
 ###### bundleless
 
 前面说过，vite 是使用ESM的规范来执行代码，在开发阶段可以不需要处理（如编译成es5），直接在浏览器运行即可。只需要起一个服务器，对于从入口开始 `import` 的依赖，返回给浏览器就行了，对于还没有`import` 的则不需要处理。即 先启动，再按需编译
 
-![](img-viteite7.png)
+![](D:\frontend\temporary-blog\develop\vite\vite浅析.assets\vite7.png)
 
 ##### 其他优化
 
@@ -214,7 +214,7 @@ function resolvePkgFile(filePath) {
 
 回滚整个流程
 
-![](img-viteite4.png)
+![](D:\frontend\temporary-blog\develop\vite\vite浅析.assets\vite4.png)
 
 1. vite2是与框架无关的，对于不同的资源处理，都是采用插件的机制
 2. 公司的项目以vue2为主，社区也提供了vue2的[插件](https://github.com/underfin/vite-plugin-vue2)，所以基于vue2的项目，都是能用vite运行的，当然打包还是用原来的cli工具

@@ -49,3 +49,7 @@ colorscheme onedark
 - y: 复制选中区域
 - d: 删除选中区域
 - p: 粘贴
+
+```shell
+set mouse-=a # 鼠标复制
+```

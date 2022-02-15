@@ -120,25 +120,43 @@ fi
 
 ##### 函数 function fname () {}
 
+#### find
+
+```shell
+find path -options # path查看路径；-options=name,user,ctime 
+find . -iname "aaa.js" # 不区分大小写找出当前目录下  aaa.js 结尾的文件，注意双引号
+find . -name "*.js" # 找出当前目录下以 .js 结尾的文件
+find . -name "[a-z]*.js" # 找出当前目录下以 小写字母开头.js 结尾的文件
+
+find . -type f          # 将当前目录及其子目录中的所有文件列出
+find . -size 100k       # 按大小搜索 -小于，+大于，不加符号=
+```
+
 #### cut/grep
 
 cut: 主要的用途在于将“同一行里面的数据进行分解!”，以行为单位处理
 
-#### grep / egrep
+##### grep / egrep
 
 grep: 从一行当中搜索想要的部分，取出来
 
 ```shell
 grep -[AB]num filename # A=after后面num行也列出来，B=before
-grep -in 'the' regular_express.txt # 找出包含 the 的行，并且列出行号n，且不区分大小写i
-grep -n 't[ae]st' regular_express.txt # 找出包含 test | tast 的行
-grep -n '[^g]oo' regular_express.txt # 找出不包含 goo 的行， 但 gooo 符合
-grep -in '^the' regular_express.txt # 找出以 the 开头的行
-grep -n 'g..d' regular_express.txt # 找出包含 g..d 的行 `.`代表任意一个字符，就是正则的 `.`
+grep -in 'the' regular_express.txt          # 找出包含 the 的行，并且列出行号n，且不区分大小写i
+grep -n 't[ae]st' regular_express.txt       # 找出包含 test | tast 的行
+grep -n '[^g]oo' regular_express.txt        # 找出不包含 goo 的行， 但 gooo 符合
+grep -in '^the' regular_express.txt         # 找出以 the 开头的行
+grep -n 'g..d' regular_express.txt          # 找出包含 g..d 的行 `.`代表任意一个字符，就是正则的 `.`
+grep 'test' d*　　          # 显示所有以d开头的文件中包含 test的行
+grep 'test' aa bb cc 　　   # 显示在aa，bb，cc文件中包含test的行
+grep '[a-z]\{5\}' aa 　　   # 显示所有包含每行字符串至少有5个连续小写字符的字符串的行
+grep -v magic /usr/src　　  # 显示/usr/src目录下的文件(不含子目录)包含magic的行
+grep -r magic /usr/src　　  # 递归查找
 
 grep -E # === egrep，可以使用更多正则功能
 grep -v '^$' regular_express.txt | grep -v '^#' # 去除空白行 和 # 为首的字符
 egrep -v '^$|^#' # 等价于上面
+
 ```
 
 #### cut
