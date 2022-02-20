@@ -22,6 +22,8 @@
 
 #### react
 
+- [为何要在声明 `import React from 'react'`](./js/react/为何要在顶部引入React.md)
+
 ### 一些实践
 
 - [前端换肤](./frontend-practice/前端换肤.md)
