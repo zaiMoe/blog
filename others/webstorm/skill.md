@@ -29,7 +29,16 @@ shift + ⌘ + +/- # 全部 折叠/展开
 
 ![](./imgs/template1.png)
 
+![](./imgs/template0.png)
+
 可以创建一个模板片段，输入短语后，快速展示出来，[用法见](https://jetbrains.com.zh.xy2401.com/help/webstorm/template-variables.html)
+
+一些变量的用法
+
+```shell
+fileNameWithoutExtension() # 文件名不带扩展名
+capitalize(fileNameWithoutExtension()) # 首字母大写
+```
 
 ##### lint
 
