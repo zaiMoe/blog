@@ -52,3 +52,7 @@
 
 - [git设置多账号](./git/git设置多账号.md)
 - [常用命令](./git/常用命令.md)
+
+### 其他
+
+- [webstrome 常用技巧](./others/webstorm/skill.md)
