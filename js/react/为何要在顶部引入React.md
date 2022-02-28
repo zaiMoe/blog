@@ -1,8 +1,6 @@
 # 为何要在声明 `import React from 'react'`
 
-### 为什么要声明这段代码
-
-在开发 `react` 时，对于函数式组件总是需要在项目顶部书写：
+在开发 `react` 时，总是需要在项目顶部书写：
 
 ```typescript
 import React from 'react'
@@ -11,7 +9,7 @@ import React from 'react'
 import * as React from 'react'
 ```
 
-实际上是因为 react 在编译 jsx 时的需要：
+实际上是因为 react 在编译 jsx 后的需要使用 `React.createElement`，举个 🌰 ：
 
 ```jsx
 const App = () => (
@@ -28,7 +26,7 @@ var App = function App() {
 };
 ```
 
-[jsx 本质是一种语法糖](https://zh-hans.reactjs.org/docs/jsx-in-depth.html)，最终依然用 React.createElement 来创建，也就是开头要引入的原因
+[jsx 本质是一种语法糖](https://zh-hans.reactjs.org/docs/jsx-in-depth.html)，最终也是转化为用 `React.createElement` 来创建，也就是开头要引入的原因
 
 ### 两者的区别
 
@@ -67,26 +65,28 @@ console.log(constant)
 
 ```js
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", { value: true }); // 标示这是一个 esm 模块
 exports.a = 1;
 var b = 2;
 exports.default = b;
 
 // index.js
 var _constant = require("./constant");
-var constant_1 = _constant.__esModule ? _constant : {default: _constant};
+
+// esm 和 cjs 的兼容处理
+var constant_1 = _constant.__esModule ? _constant : {default: _constant}; 
 console.log(constant_1.default);
 ```
 
-对于 [react v16.13.0](https://github.com/facebook/react/blob/v16.12.0/packages/react/src/React.js) 之前的版本都是通过 `export default` 导出的，所以会使用 `import React from 'react'` 来导入 react。
+1. 首先对于 [react v16.13.0](https://github.com/facebook/react/blob/v16.12.0/packages/react/src/React.js) 之前的版本都是通过 `export default` 导出的，所以使用 `import React from 'react'` 来导入 react，上面的 `console.log(constant)` 才不会是 `undefined`
 
-但是从  [react v16.13.0](https://github.com/facebook/react/blob/v16.13.0/packages/react/src/React.js) 开始，react 就改成了用 `export` 的方式导出了，如果在 ts 中使用 `import React from 'react'` 则会有错误提示：
+2. 但是从  [react v16.13.0](https://github.com/facebook/react/blob/v16.13.0/packages/react/src/React.js) 开始，react 就改成了用 `export` 的方式导出了，如果在 ts 中使用 `import React from 'react'` 则会有错误提示：
 
-```text
-TS1259: Module 'xxxx' has no default export.
-```
+  ```text
+  TS1259: Module 'xxxx' has no default export.
+  ```
 
-由于没有了 `default` 属性，所以上面编译后的代码 `console.log(constant_1.default)` 输出的是 `undefined`，ts 会提示有错误。
+  由于没有了 `default` 属性，所以上面编译后的代码 `console.log(constant)` 输出的是 `undefined`，ts 会提示有错误。
 
 > 关于 export default 的一些问题可以参考
 >
@@ -101,7 +101,7 @@ TS1259: Module 'xxxx' has no default export.
 那么 ts 也提供了 [allowSyntheticDefaultImports 配置](https://www.typescriptlang.org/tsconfig#allowSyntheticDefaultImports)
 属性来跳过这个检查，简单来说会把 `import` 没有 `exports.default` 的报错忽略。
 
-细心的你肯定还会想，忽略了错误检查，但错误还是在啊，为什么还是能照常使用呢？
+细心的你肯定还会想，忽略了错误检查，但错误还是在啊（没有 `default`），为什么还是能照常使用呢？
 先来看看 react 的构建产物：
 
 ```js
@@ -145,4 +145,4 @@ console.log(_react.default);
 
 1. 使用自动导入方案（推荐）
 2. `import * as React from 'react'` （兼容性好）
-3. `import React from 'react'` （ts 配合 allowSyntheticDefaultImports）
+3. `import React from 'react'` （ts 配合 allowSyntheticDefaultImports 忽略报错）
