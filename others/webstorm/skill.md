@@ -87,6 +87,9 @@ interface $name$Props {
 export const $name$: React.FC<$name$Props> = () => {
   return <div>app</div>;
 };
+
+// 变量
+$name$: capitalize(fileNameWithoutExtension())
 ```
 
 ##### other
@@ -103,6 +106,10 @@ common head comment
  * @create $date$
  * @desc $filename$
  */
+
+// 变量
+$date$: date("Y-MM-dd")
+$filename$: fileNameWithoutExtension()
 ```
 
 #### file and code templates
