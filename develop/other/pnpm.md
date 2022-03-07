@@ -7,7 +7,7 @@
 
 ### 常用命令
 
-```shell
+```bash
 pnpm prune    # 删除一些不被全局项目所引用但包，以减小全局 store 但存储空间
 pnpm add pkg  # 添加一个包
 pnpm remove/uninstall/rm pkg  # 删除

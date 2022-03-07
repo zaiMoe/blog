@@ -2,7 +2,7 @@
 
 ### curl
 
-```shell
+```bash
 curl url # 发出 get 请求
 curl -[ilvK] url # -i打印响应头和内容；-l响应头；-v打印全部；-K跳过 ssl 检查
 curl -A "xx" url # 设置 户代理标头（User-Agent）

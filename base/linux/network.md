@@ -14,7 +14,7 @@
 
 #### ifconfig
 
-```shell
+```bash
 ifconfig eth0 # 查看网卡信息
 ifconfig eth0 192.168.1.10 # 给网卡配置 ip
 ifconfig eth0 192.168.1.10 netmask 255.255.255.0
@@ -23,7 +23,7 @@ ifconfig eth0 down/up # 关闭/开启网卡
 
 #### ip
 
-```shell
+```bash
 ip route # 查看路由
 ```
 

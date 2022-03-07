@@ -22,13 +22,13 @@
 
 启动mongodb
 
-```shell
+```bash
 service mongodb start # 启动服务
 service mongodb status # 查看状态
 service mongodb stop # 停止运行数据库
 ```
 
-```shell
+```bash
 show dbs    # 查看数据库列表
 use name    # 创建、选择数据库
 db          # 查看当前数据库
@@ -38,7 +38,7 @@ db.dropDatabase() # 删除当前数据库
 
 ##### 插入
 
-```shell
+```bash
 db.表名.drop()      # 删除当前数据库指定表
 db.表名.insert()    # 删除当前数据库指定表
 db.表名.save()      # 更新，当默认的“_id”值已存在时，调用insert方法插入会报错；而save方法不会,会更新相同的_id所在行数据的信息
@@ -46,7 +46,7 @@ db.表名.save()      # 更新，当默认的“_id”值已存在时，调用in
 
 ##### 查找
 
-```shell
+```bash
 db.表名.find():                     # 查询表中所有数据
 db.表名.find(条件):                 # 按条件查询
 db.表名.findOne(条件):              # 查询第一条(支持条件)
@@ -57,14 +57,14 @@ db.表名.find().forEach(printjson)   # 以json形式打印
 
 ##### 修改
 
-```shell
+```bash
 db.表名.update(query, update, upsert, multi)
 # db.col.update( { "count" : { $gt : 1 } } , { $set : { "test2" : "OK"} } );
 ```
 
 ##### 删除
 
-```shell
+```bash
 db.表名.remove(query, justOne);
 ```
 

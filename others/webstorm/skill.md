@@ -4,7 +4,7 @@
 
 #### windows
 
-```shell
+```bash
 ctrl + shift + ↑                # 移动行
 ctrl + alt + ←                  # 移动到上次操作的地方
 ctrl + shift + alt + j          # 选择相同内容
@@ -14,7 +14,7 @@ alt + j         # 选中相同单词
 
 #### mac
 
-```shell
+```bash
 ⌘ == Command
 ⌥ == Option
 
@@ -35,7 +35,7 @@ shift + ⌘ + +/- # 全部 折叠/展开
 
 一些变量的用法
 
-```shell
+```bash
 fileNameWithoutExtension() # 文件名不带扩展名
 capitalize(fileNameWithoutExtension()) # 首字母大写
 ```
@@ -142,7 +142,7 @@ $filename$: fileNameWithoutExtension()
 
     相关参数：
 
-    ```shell
+    ```bash
     $ProjectFileDir$\node_modules\.bin\stylelint # 如果是window 则为 stylelint.cmd
     $FileName$ --fix
     $FileDir$
@@ -158,7 +158,7 @@ $filename$: fileNameWithoutExtension()
 
 ### 其他
 
-```shell
+```bash
 !*test.java,*.java,!Test*.java # 全局搜索时，使用 ! 排除特定文件，目录
 ```
 

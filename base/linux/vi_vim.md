@@ -50,6 +50,6 @@ colorscheme onedark
 - d: 删除选中区域
 - p: 粘贴
 
-```shell
+```bash
 set mouse-=a # 鼠标复制
 ```
