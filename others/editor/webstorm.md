@@ -27,9 +27,9 @@ shift + ⌘ + +/- # 全部 折叠/展开
 
 #### Live Template
 
-![](./imgs/template1.png)
+![](./webstorm.asset/template1.png)
 
-![](./imgs/template0.png)
+![](./webstorm.asset/template0.png)
 
 可以创建一个模板片段，输入短语后，快速展示出来，[用法见](https://jetbrains.com.zh.xy2401.com/help/webstorm/template-variables.html)
 
@@ -116,7 +116,7 @@ $filename$: fileNameWithoutExtension()
 
 可以在 include 中创建变量
 
-![](./imgs/template2.png)
+![](./webstorm.asset/template2.png)
 
 ```js
 /**
@@ -127,18 +127,18 @@ $filename$: fileNameWithoutExtension()
 
 然后在 Files 中使用：`#parse("common_header")`
 
-![](./imgs/template3.png)
+![](./webstorm.asset/template3.png)
 
 ##### stylelint 设置
 
 对于新版本的webstorm本身已经内置 stylelint 命令，直接设置快捷键即可
 
-![](./imgs/stylelint3.png)
+![](./webstorm.asset/stylelint3.png)
 
 对于 webstorm 2021.3 之前的产品，stylelint 并没有像 eslint 一样，内置修复命令，但可以通过自定义 tools 来实现
 
 1. 自定义 stylelint 命令工具
-    ![](./imgs/stylelint1.png)
+    ![](./webstorm.asset/stylelint1.png)
 
     相关参数：
 
@@ -149,7 +149,7 @@ $filename$: fileNameWithoutExtension()
     ```
 
 2. 设置快捷键，方便调用
-   ![](./imgs/stylelint2.png)
+   ![](./webstorm.asset/stylelint2.png)
 
 ### 插件
 
