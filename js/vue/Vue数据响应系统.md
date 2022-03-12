@@ -1,10 +1,10 @@
 # Vue数据响应系统
 
+![](./Vue数据响应系统.assets/img1.png)
+
 ## 变化监测
 
 数据驱动视图：`UI = render(state)`
-
-![b31006971e6cc5b6fb848aac40fb30da.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p40)
 
 ### 开始进行数据观测
 
@@ -26,23 +26,25 @@ observe(data, true /* asRootData */) // 观察data
 
 ```typescript
 function observe (value: any, asRootData?: boolean) { 
-// 对数据进行判断，如果不是对象或者是vnode，则不观测 
-if (!isObject(value) || value instanceof VNode) return 
-let ob: Observer | void 
-if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) { 
-ob = value.__ob__ // 避免重复观测 
-} else if ( 
-shouldObserve && // 某些条件下可以关闭观察 
-(Array.isArray(value) || isPlainObject(value)) && // 数组和纯对象 
-Object.isExtensible(value) && // 排除 Object.freeze() 等不可观测对象 
-!value._isVue // 避免观测vue对象 
-) { 
-ob = new Observer(value) // start 
-} 
-if (asRootData && ob) { 
-ob.vmCount++ 见下 
-} 
-return ob 
+    // 对数据进行判断，如果不是对象或者是vnode，则不观测 
+    if (!isObject(value) || value instanceof VNode) return 
+
+    let ob: Observer | void 
+    if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) { 
+        ob = value.__ob__ // 避免重复观测 
+    } else if ( 
+        shouldObserve && // 某些条件下可以关闭观察 
+        (Array.isArray(value) || isPlainObject(value)) && // 数组和纯对象 
+        Object.isExtensible(value) && // 排除 Object.freeze() 等不可观测对象 
+        !value._isVue // 避免观测vue对象 
+    ) { 
+
+        ob = new Observer(value) // start 
+    } 
+    if (asRootData && ob) { 
+        ob.vmCount++ 见下 
+    } 
+    return ob 
 } 
 ```
 
@@ -53,22 +55,30 @@ return ob
 
 ```typescript
 class Observer { 
-value: any; // value 属性指向 data 数据对象本身(观察数据对象)，这是一个循环引用 
-dep: Dep; 
-vmCount: number; 
-constructor (value: any) { 
-this.value = value 
-this.dep = new Dep() 
-this.vmCount = 0 
-if (Array.isArray(value)) { 
-protoAugment(value, arrayMethods) // 处理数组的原型方法，见下面 
-this.observeArray(value) 
-} else { 
-this.walk(value) 
-} 
-} 
-observeArray (value) {} // 观测数组，每个item都是一个observe实例 
-walk(obj){} // 遍历对象的key，调用defineReactive(obj, key) 
+    value: any; // value 属性指向 data 数据对象本身(观察数据对象)，这是一个循环引用 
+    dep: Dep; 
+    vmCount: number;
+
+    constructor (value: any) {
+
+        this.value = value 
+        this.dep = new Dep() 
+        this.vmCount = 0
+
+        if (Array.isArray(value)) { 
+            // 处理数组的原型方法，见下面 
+            protoAugment(value, arrayMethods) 
+            this.observeArray(value) 
+        } else { 
+            this.walk(value) 
+        } 
+    } 
+
+    // 观测数组，每个item都是一个observe实例
+    observeArray (value) {}
+
+    // 遍历对象的key，调用defineReactive(obj, key) 
+    walk(obj){}
 } 
 ```
 
@@ -81,31 +91,32 @@ walk(obj){} // 遍历对象的key，调用defineReactive(obj, key)
 
 ```typescript
 function defineReactive (obj, key, value, customSetter?, shallow?) { 
-const dep = new Dep() // 每个key都有自己的Dep实例对象，用来放置属于key的依赖对象 
-let childOb = !shallow && observe(val) // 对象深度观测 
-Object.defineProperty(obj, key, { 
-get: function reactiveGetter () { 
-if (Dep.target) { 
-dep.depend() 
-if (childOb) { 
-childOb.dep.depend() // 提供给$set 和 Vue.set，见下面 
-if (Array.isArray(value)) { // 同上一行 
-dependArray(value) 
-} 
-} 
-} 
-return value 
-}, 
-set: function reactiveSetter (newVal) { 
-// 无变化，后面的判断是针对NaN !== NaN做判断 
-if (newVal === value || (newVal !== newVal && value !== value)) { 
-return 
-} 
-value = newVal 
-childOb = !shallow && observe(newVal) // 对象深度观测 
-dep.notify() // 通知依赖 
-} 
-}) 
+    const dep = new Dep() // 每个key都有自己的Dep实例对象，用来放置属于key的依赖对象 
+    let childOb = !shallow && observe(val) // 对象深度观测 
+
+    Object.defineProperty(obj, key, { 
+        get: function reactiveGetter () { 
+            if (Dep.target) { 
+                dep.depend() 
+                if (childOb) { 
+                    childOb.dep.depend() // 提供给$set 和 Vue.set，见下面 
+                    if (Array.isArray(value)) { // 同上一行 
+                        dependArray(value) 
+                    } 
+                }    
+            } 
+            return value 
+        }, 
+        set: function reactiveSetter (newVal) { 
+                // 无变化，后面的判断是针对NaN !== NaN做判断 
+            if (newVal === value || (newVal !== newVal && value !== value)) { 
+                return 
+            } 
+            value = newVal 
+            childOb = !shallow && observe(newVal) // 对象深度观测 
+            dep.notify() // 通知依赖 
+        } 
+    }) 
 } 
 ```
 
@@ -125,12 +136,12 @@ $set(a, 'test', 1); // 需要通知template改变
 
 ```typescript
 Vue.set = function (obj, key, val) { 
-defineReactive(obj, key, val) 
-obj.__ob__.dep.notify() 
+    defineReactive(obj, key, val) 
+    obj.__ob__.dep.notify() 
 } 
 Vue.del = function (obj, key, val) { 
-delete target[key] 
-obj.__ob__.dep.notify() 
+    delete target[key] 
+    obj.__ob__.dep.notify() 
 } 
 ```
 
@@ -141,15 +152,15 @@ obj.__ob__.dep.notify()
 ```typescript
 const arrayProto = Array.prototype 
 const arrayMethods = Object.create(arrayProto) 
-const methodsToPatch = ['push','pop','shift', 'unshift','splice','sort','reverse'] 
+const methodsToPatch = ['push','pop','shift', 'unshift','splice','sort','reverse']
 methodsToPatch.forEach(function (method) { 
-const original = arrayProto[method] // 保存原方法 
-def(arrayMethods, method, function mutator (...args) { 
-const result = original.apply(this, args) 
-// 省略对 push，unshift，splice等添加的方式处理 
-this.__ob__.dep.notify() // 触发依赖变更通知 
-return result 
-}) 
+    const original = arrayProto[method] // 保存原方法 
+    def(arrayMethods, method, function mutator (...args) { 
+        const result = original.apply(this, args) 
+        // 省略对 push，unshift，splice等添加的方式处理 
+        this.__ob__.dep.notify() // 触发依赖变更通知 
+        return result 
+    }) 
 }) 
 ```
 
@@ -168,27 +179,27 @@ return result
 
 ```typescript
 function mountComponent(vm, el, hydrating) { 
-vm.$el = el 
-// ... 对render不存在的处理 
-callHook(vm, 'beforeMount') 
-let updateComponent = () => { 
-let vnode = vm._render(); // 调用render生成vnode 
-vm._update(vnode, hydrating) // vnode -> DOM 
-} 
-// 创建观察者，触发数据属性get从而收集依赖 
-// 调用 updateComponent 并求值 
-new Watcher(vm, updateComponent, noop, { 
-before () { 
-if (vm._isMounted && !vm._isDestroyed) { 
-callHook(vm, 'beforeUpdate') 
-} 
-} 
-}, true /* isRenderWatcher */) 
-if (vm.$vnode == null) { 
-vm._isMounted = true 
-callHook(vm, 'mounted') 
-} 
-return vm 
+    vm.$el = el 
+    // ... 对render不存在的处理 
+    callHook(vm, 'beforeMount') 
+    let updateComponent = () => { 
+        let vnode = vm._render(); // 调用render生成vnode 
+        vm._update(vnode, hydrating) // vnode -> DOM 
+    } 
+    // 创建观察者，触发数据属性get从而收集依赖 
+    // 调用 updateComponent 并求值 
+    new Watcher(vm, updateComponent, noop, { 
+        before () { 
+            if (vm._isMounted && !vm._isDestroyed) { 
+                callHook(vm, 'beforeUpdate') 
+            } 
+        } 
+    }, true /* isRenderWatcher */) 
+    if (vm.$vnode == null) { 
+        vm._isMounted = true 
+        callHook(vm, 'mounted') 
+    } 
+    return vm 
 } 
 ```
 
@@ -199,45 +210,49 @@ return vm
 ```typescript
 class Watcher { 
 constructor ( 
-vm: Component, 
-expOrFn: string | Function, // 执行过程会触发数据属性的getter，完成依赖收集 
-cb: Function, 
-options?: Object, 
-isRenderWatcher?: boolean 
+    vm: Component, 
+    expOrFn: string | Function, // 执行过程会触发数据属性的getter，完成依赖收集 
+    cb: Function, 
+    options?: Object, 
+    isRenderWatcher?: boolean 
 ) { 
-this.vm = vm 
-// 只有在 mountComponent 函数中创建渲染函数观察者，才会复制给_watcher（initLifecycle中初始化） 
-if (isRenderWatcher) {vm._watcher = this} 
-vm._watchers.push(this) // initState 中初始化 
-// ... 
-// 避免收集重复依赖，见下面 
-this.deps = [] 
-this.newDeps = [] 
-this.depIds = new Set() 
-this.newDepIds = new Set() 
-this.getter = typeof expOrFn === 'function' ? expOrFn : parsePath(expOrFn) 
-this.value = this.lazy? undefined : this.get() 
-} 
-// 依赖收集 
-get () { 
-pushTarget(this) // 即将触发依赖收集的观察者对象 
-let value = this.getter.call(vm, vm) 
-if (this.deep) traverse(value) // 见 深度观测的实现 
-popTarget() 
-this.cleanupDeps() // 清空newDepIds 和 newDeps 
-return value 
-} 
-// Dep.depend调用的时候会执行调用 
-addDep (dep: Dep) { } 
-// 将newDepIds和newDeps复制给depIds属性和deps后清空， 
-// 并移除无效的观察者,如if的切换 
-cleanupDeps () {} 
-// ... 
-// 从观察者中移除依赖（当前Watcher实例），取消观测 
-teardown () { 
-// ... 
-this.active = false // 失活 
-} 
+        this.vm = vm 
+        // 只有在 mountComponent 函数中创建渲染函数观察者，才会复制给_watcher（initLifecycle中初始化） 
+        if (isRenderWatcher) {vm._watcher = this} 
+
+        vm._watchers.push(this) // initState 中初始化 
+        // ... 
+        // 避免收集重复依赖，见下面 
+        this.deps = [] 
+        this.newDeps = [] 
+        this.depIds = new Set() 
+        this.newDepIds = new Set() 
+        this.getter = typeof expOrFn === 'function' ? expOrFn : parsePath(expOrFn)
+
+        this.value = this.lazy? undefined : this.get() 
+    } 
+    // 依赖收集 
+    get () { 
+        pushTarget(this) // 即将触发依赖收集的观察者对象 
+        let value = this.getter.call(vm, vm) 
+        if (this.deep) traverse(value) // 见 深度观测的实现 
+        popTarget() 
+        this.cleanupDeps() // 清空newDepIds 和 newDeps 
+        return value 
+    } 
+    // Dep.depend调用的时候会执行调用 
+    addDep (dep: Dep) { } 
+
+    // 将newDepIds和newDeps复制给depIds属性和deps后清空， 
+    // 并移除无效的观察者,如if的切换 
+    cleanupDeps () {} 
+
+    // ... 
+    // 从观察者中移除依赖（当前Watcher实例），取消观测 
+    teardown () { 
+    // ... 
+    this.active = false // 失活 
+    } 
 } 
 ```
 
@@ -245,9 +260,9 @@ this.active = false // 失活
 
 1. `newDepIds` 属性用来在一次求值中避免收集重复的观察者
 
-```html
-<div>{{msg}}{{msg}}</div> 
-```
+    ```html
+    <div>{{msg}}{{msg}}</div> 
+    ```
 
 2. 在求值完成后，会清空 `newDepIds` 和 `newDeps`，并赋给了 `depIds` 属性和 `deps` 属性
 3. `depIds` 属性用来避免多次求值（数据改变时，重新渲染求值）时收集重复的观察者
@@ -258,19 +273,19 @@ this.active = false // 失活
 
 ```typescript
 set: function reactiveSetter (newVal) { 
-// 省略... 
-dep.notify() 
+    // 省略... 
+    dep.notify() 
 } 
 class Dep { 
-update () { 
-const subs = this.subs.slice() 
-if (process.env.NODE_ENV !== 'production' && !config.async) { 
-subs.sort((a, b) => a.id - b.id) 
-} 
-for (let i = 0, l = subs.length; i < l; i++) { 
-subs[i].update() // 通知所有的依赖更新了 
-} 
-} 
+    update () { 
+        const subs = this.subs.slice() 
+        if (process.env.NODE_ENV !== 'production' && !config.async) { 
+            subs.sort((a, b) => a.id - b.id) 
+        } 
+        for (let i = 0, l = subs.length; i < l; i++) { 
+            subs[i].update() // 通知所有的依赖更新了 
+        } 
+    } 
 } 
 ```
 
@@ -278,34 +293,34 @@ Wather中
 
 ```typescript
 class Watcher { 
-// ... 
-notify () { 
-if (this.lazy) { 
-this.dirty = true // compute的时候，lazy是true 
-} else if (this.sync) { // 渲染函数的观察者都是异步的 
-this.run() 
-} else { 
-queueWatcher(this) // 一次修改多个，但只执行一次重渲染，最终也是调用 this.run() 
-} 
-} 
-run () { 
-if (this.active) { // 观察者是否处于激活状态 
-const value = this.get() // 重新求值 
-if ( 
-value !== this.value || 
-isObject(value) || // object就重新执行，因为引用地址没变化，但是内部属性值可能变化了 
-this.deep 
-) { 
-const oldValue = this.value 
-this.value = value 
-if (this.user) { 
-// ... 与下面一样，多了异常处理，对应watch或$watch 
-} else { 
-this.cb.call(this.vm, value, oldValue) // render 
-} 
-} 
-} 
-} 
+    // ... 
+    notify () { 
+        if (this.lazy) { 
+            this.dirty = true // compute的时候，lazy是true 
+        } else if (this.sync) { // 渲染函数的观察者都是异步的 
+            this.run() 
+        } else { 
+            queueWatcher(this) // 一次修改多个，但只执行一次重渲染，最终也是调用 this.run() 
+        } 
+    } 
+    run () {
+        if (this.active) { // 观察者是否处于激活状态 
+            const value = this.get() // 重新求值 
+            if ( 
+                value !== this.value || 
+                isObject(value) || // object就重新执行，因为引用地址没变化，但是内部属性值可能变化了 
+                this.deep 
+            ) { 
+                const oldValue = this.value 
+                this.value = value 
+                if (this.user) { 
+                // ... 与下面一样，多了异常处理，对应watch或$watch 
+                } else { 
+                    this.cb.call(this.vm, value, oldValue) // render 
+                } 
+            } 
+        } 
+    }
 } 
 ```
 
@@ -324,18 +339,19 @@ expOrFn: string | Function,
 cb: any, 
 options?: Object 
 ): Function { 
-const vm: Component = this 
-// 对象用法。传options 
-if (isPlainObject(cb)) return createWatcher(vm, expOrFn, cb, options) 
-options = options || {} 
-options.user = true // 多一个user 
-const watcher = new Watcher(vm, expOrFn, cb, options) 
-if (options.immediate) { 
-cb.call(vm, watcher.value) 
-} 
-return function unwatchFn () { 
-watcher.teardown() 
-} 
+    const vm: Component = this 
+    // 对象用法。传options 
+    if (isPlainObject(cb)) return createWatcher(vm, expOrFn, cb, options) 
+    
+    options = options || {} 
+    options.user = true // 多一个user 
+    const watcher = new Watcher(vm, expOrFn, cb, options) 
+    if (options.immediate) { 
+        cb.call(vm, watcher.value) 
+    } 
+    return function unwatchFn () { 
+        watcher.teardown() 
+    } 
 } 
 // 处理options，然后返回$watch 
 function createWatcher () {} 
@@ -345,12 +361,12 @@ function createWatcher () {}
 
 ```typescript
 class Watcher { 
-// ... 
-get () { 
-// ... 
-if (this.deep) traverse(value) 
-// ... 
-} 
+    // ... 
+    get () { 
+        // ... 
+        if (this.deep) traverse(value) 
+        // ... 
+    } 
 } 
 // 深度读取一次obj的所有属性值触发属性访问器添加当前的Watcher依赖 
 function traverse () {} 
@@ -364,29 +380,31 @@ function traverse () {}
 
 ```typescript
 function initComputed (vm: Component, computed: Object) { 
-const watchers = vm._computedWatchers = Object.create(null) 
-for (const key in computed) { 
-const userDef = computed[key] 
-const getter = typeof userDef === 'function' ? userDef : userDef.get 
-watchers[key] = new Watcher( 
-vm, 
-getter || noop, 
-noop, 
-computedWatcherOptions // {lazy: true} ,所以需要template进行一次求值 
-) 
-if (!(key in vm)) {defineComputed(vm, key, userDef)} 
+    const watchers = vm._computedWatchers = Object.create(null) 
+    for (const key in computed) { 
+        const userDef = computed[key] 
+        const getter = typeof userDef === 'function' ? userDef : userDef.get 
+        
+        watchers[key] = new Watcher( 
+            vm, 
+            getter || noop, 
+            noop, 
+            computedWatcherOptions // {lazy: true} ,所以需要template进行一次求值 
+        ) 
+
+        if (!(key in vm)) {defineComputed(vm, key, userDef)} 
+    }
 } 
-} 
-// 为vm.xxx定义属性访问器，将get -> computedGetter 
+    // 为vm.xxx定义属性访问器，将get -> computedGetter 
 function defineComputed () {} 
 function computedGetter () { 
-const watcher = this._computedWatchers && this._computedWatchers[key] 
-if (watcher) { 
-if (watcher.dirty) {watcher.evaluate()} // 求值，当依赖变化的时候，直到取值时才重新求值 
-if (Dep.target) { // 发生在渲染函数执行时，此时指向渲染函数的观察者对象（求值过程pushTarget） 
-watcher.depend() // 收集 渲染函数的观察者对象 
-} 
-return watcher.value 
-} 
+    const watcher = this._computedWatchers && this._computedWatchers[key] 
+    if (watcher) { 
+        if (watcher.dirty) {watcher.evaluate()} // 求值，当依赖变化的时候，直到取值时才重新求值 
+        if (Dep.target) { // 发生在渲染函数执行时，此时指向渲染函数的观察者对象（求值过程pushTarget） 
+            watcher.depend() // 收集 渲染函数的观察者对象 
+        }
+        return watcher.value 
+    } 
 } 
 ```
