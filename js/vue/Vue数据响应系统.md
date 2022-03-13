@@ -4,7 +4,7 @@
 
 ## 变化监测
 
-数据驱动视图：`UI = render(state)`
+数据驱动视图：`UI = render(state)`ß
 
 ### 开始进行数据观测
 
@@ -15,9 +15,14 @@
 对数据进行初始处理
 
 ```typescript
-data = vm._data = vm.$options.data // 创建一个_data指向data 
-proxy(vm, `_data`, key) // 代理key，能用过this访问data中的属性， (vm._data中获取) 
-observe(data, true /* asRootData */) // 观察data 
+// 创建一个_data指向data 
+data = vm._data = vm.$options.data 
+
+// 代理key，能用过this访问data中的属性， (vm._data中获取) 
+proxy(vm, `_data`, key) 
+
+// 观察data 
+observe(data, true /* asRootData */) 
 ```
 
 ### observe
@@ -48,8 +53,7 @@ function observe (value: any, asRootData?: boolean) {
 } 
 ```
 
-`ob.vmCount`作用：只有组件vue.data对象的时候，`vmCount`才>0，也就是可以通过`vmCount>0`来判断是不是根data对象，
-当使用`$set`的时候，如`$set(vm, 'newKey', xx)`，是不会触发响应的，因为vm.data本身不是`Observer`对象。
+`ob.vmCount`作用：只有组件vue.data对象的时候，`vmCount`才>0，也就是可以通过`vmCount>0`来判断是不是根data对象，当使用`$set`的时候，如`$set(vm, 'newKey', xx)`，是不会触发响应的，因为vm.data本身不是`Observer`对象。
 
 ### new Observer
 
