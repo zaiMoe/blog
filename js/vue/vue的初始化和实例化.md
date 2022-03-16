@@ -1,5 +1,7 @@
 # vue的初始化和实例化
 
+![](./imgs/vue%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E5%AE%9E%E4%BE%8B%E5%8C%96.png)
+
 ## vue的初始化
 
 `src\core\instance\index.js`
@@ -29,13 +31,13 @@ renderMixin(Vue)
 
 执行`this._init(options)`
 
-```
+```js
 if (options && options._isComponent) {
     // 子组件mergeOptions，在创建子组件dom的章节再讲
     initInternalComponent(vm, options)
   } else {
     //... mergeOptions(options)
-  }
+}
 
 vm._renderProxy = vm
 vm._self = vm
@@ -60,11 +62,11 @@ if (vm.$options.el) {
 
 #### mergeOptions 做了什么
 
-```
+```js
 function mergeOptions (
-parent, // 传入的是父级构造器的Ctor.options
-child, // 当前的options，实例的时候传进来的
-vm?) { // 实例本身，可以不传表示不是在实例化的时候调用，会影响合并结果
+  parent, // 传入的是父级构造器的Ctor.options
+  child, // 当前的options，实例的时候传进来的
+  vm?) { // 实例本身，可以不传表示不是在实例化的时候调用，会影响合并结果
 } 
 ```
 
@@ -94,7 +96,7 @@ vm?) { // 实例本身，可以不传表示不是在实例化的时候调用，�
 
 初始化一些状态和用于保存信息的变量，如
 
-```
+```js
 parent.$children.push(vm) // 将当前实例添加到父级的$children中
 vm.$parent = parent
 vm.$refs = {}
