@@ -1,8 +1,8 @@
 # vnode到真实dom
 
-![21de098782f1e770ec6e94d14e1ec9ae.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p45)
+![](./imgs/vnode到真实dom_img1.png)
 
-![ebbd9a6830e53207e33bbb2b391f4d35.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p46)
+![](./imgs/vnode到真实dom_img2.png)
 
 当数据变化时，会触发渲染函数，执行
 
@@ -14,9 +14,9 @@ vm._update(vm._render(), hydrating)
 
 ## _update
 
-### activeInstance
+### activeInstance 对象
 
-当前执行update时的上下文的Vue实例，在更新结束的时候会回到父实例
+> 当前执行update时的上下文的Vue实例，在更新结束的时候会回到父实例
 
 ```typescript
 export let activeInstance: any = null
@@ -30,7 +30,7 @@ function setActiveInstance(vm: Component) {
 }
 ```
 
-### _update
+### _update 的来源
 
 ```typescript
 function lifecycleMixin (Vue: Class<Component>) {
@@ -55,7 +55,7 @@ function lifecycleMixin (Vue: Class<Component>) {
 }
 ```
 
-## patch
+## patch 过程
 
 ### patch的策略
 
@@ -396,7 +396,7 @@ function patchVnode (
 
 #### 扫描过程
 
-![0081b8702a64359e744f4e432fd59482.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p43)
+![](./imgs/vnode到真实dom_img3.png)
 
 遍历整个`newVnode[]`,`oldVnode[]`, 从两头向中间比较，`newVnode[]`或`oldVnode[]`中任意一组都扫描过了结束遍历。比较的场景如下：
 
@@ -415,9 +415,9 @@ function patchVnode (
 
 ##### 3. 节点位置移动的情况
 
-![536a70ef75d80f0e0afe60b5fb4803fb.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p42)
+![](./imgs/vnode到真实dom_img4.png)
 
-![1ebf28f5165fc45d4d3ca280102e9bdb.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p41)
+![](./imgs/vnode到真实dom_img5.png)
 
 1. newEndIndex === oldStartIndex：
     - 先判断节点右移，patchVnode(children)，处理完子节点
@@ -430,7 +430,7 @@ function patchVnode (
 
 ##### 4. 首位两两不等
 
-![224a76fd060b888186dd810fc48dd467.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p44)
+![](./imgs/vnode到真实dom_img6.png)
 
 先判断在`old VNode`中是否存在`newStartIndex`节点：
 
