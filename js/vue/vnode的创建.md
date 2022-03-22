@@ -1,6 +1,6 @@
 # vnode的创建
 
-![fe7afa1b630829247e872b2a5cbb0709.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p123)
+![](./imgs/vnode%E7%9A%84%E5%88%9B%E5%BB%BA_img1.png)
 
 ### 例子
 
@@ -61,7 +61,7 @@ Vue.prototype.$mount = function (el, hydrating) {
 
 ### 生成render函数
 
-![7ecc937790ab467082b7c63a47641fab.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p124)
+![](./imgs/vnode%E7%9A%84%E5%88%9B%E5%BB%BA_img2.png)
 
 1. 先获取`template`
 
@@ -83,7 +83,7 @@ Vue.prototype.$mount = function (el, hydrating) {
 `createCompiler`: 传入`baseCompile->
 createCompilerCreatir(baseComplie) -> createCompile` -> 编辑器的创建者，对编译器作一些封装，使得不同的平台不需要传入相同的参数（偏函数的方式）,
 
-```
+```js
 {
     compile, // 封装对baseComplie产生错误的处理，并返回baseCompile的结果
     // 对compile的结果进一步封装，转换中间代码为真正可执行的render函数
@@ -104,8 +104,7 @@ function createCompileToFunctionFn (compile): Function {
      return cache[key]
    }
    
-   // 编译（下面的baseCompile的结果![f2236b3e62f91c319bc99d12f7a51325.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p125)
-            ），拿到ast、render（string code）、staticRenderFns
+   // 编译拿到ast、render（string code）、staticRenderFns
    const compiled = compile(template, options)
    
    const res = {}
@@ -144,7 +143,7 @@ const ast = parse(template.trim(), options)  if (options.optimize !== false) {
   }})
 ```
 
-![002cab0f9c3e5a3ce1d05b2c8d4a9116.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p122)
+![](./imgs/vnode%E7%9A%84%E5%88%9B%E5%BB%BA_img3.png)
 
 #### parse
 
@@ -152,7 +151,7 @@ const ast = parse(template.trim(), options)  if (options.optimize !== false) {
 
 元素描述对象可能会增加这些
 
-```json
+```js
 {
  type: 1, // 1为标签(包括自定义组件标签)，2为字面量表达式的文本节点，3为纯文本或注释
     tag: 'div',
@@ -421,7 +420,7 @@ function mountComponent(vm, el, hydrating) {
 
 ### _render返回Vnode
 
-![f2236b3e62f91c319bc99d12f7a51325.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p125)
+![](./imgs/vnode%E7%9A%84%E5%88%9B%E5%BB%BA_img4.png)
 
 ```typescript
 Vue.prototype._render = function() {
@@ -681,7 +680,7 @@ const componentVNodeHooks = {
 
 虚拟dom树，是使用JavaScript的对象来对真实Dom的一个描述。用于最后的patch过程，更新真实的dom树，减少不必要的更新。
 
-![2f5b4ba54f71ce553b5a9e64d403ccf2.png](evernotecid://C54A0D32-226D-4A54-A746-72B250392753/appyinxiangcom/18327894/ENResource/p121)
+![](./imgs/vnode%E7%9A%84%E5%88%9B%E5%BB%BA_img5.png)
 
 Fragment: 抽象节点，`template`,不是真实节点，只把子节点渲染到页面上
 Portal: 就是把子节点渲染到给定的目标
