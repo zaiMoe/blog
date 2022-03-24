@@ -8,7 +8,7 @@
 
 #### mixin(vue)
 
-```
+```typescript
 // src/mixin.ts
 
 Vue.mixin({
