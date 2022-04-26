@@ -8,7 +8,7 @@ typora 的默认主题只有一个左侧侧边栏，可以切换显示 `文件�
 
 ## 使用方式
 
-1. 打开 `偏好设置-> 外观` 面板，点击 `打开主题文件夹`，将 [vue-sidebar.css](./typora 右侧大纲主题.assets/vue-sidebar.css) 复制进去
+1. 打开 `偏好设置-> 外观` 面板，点击 `打开主题文件夹`，将 [vue-sidebar.css](./typora右侧大纲主题.assets/vue-sidebar.css) 复制进去
 2. 重启 typora
 3. 打开 `偏好设置-> 外观` 面板，在主题中选择即可
 
