@@ -1,4 +1,4 @@
-# vs code 
+# vscode 
 
 ### 常用插件
 - Markdown All in One
