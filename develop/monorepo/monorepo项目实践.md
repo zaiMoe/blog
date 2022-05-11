@@ -146,7 +146,7 @@ yarn workspace pkg1 add pkg2@version -E
 yarn workspace pkg1 remove pkg2@version
 ```
 
-##### 其他
+##### 其他命令
 
 ```bash
 # 显示当前各 workspace 之间的依赖关系树。
@@ -162,97 +162,97 @@ yarn workspaces run command
 
 1. 开启`yarn workspace`(yarn1.x版本默认是关闭的)
 
-```bash
-yarn config set workspaces-experimental true
-```
+    ```bash
+    yarn config set workspaces-experimental true
+    ```
 
 2. 在项目中安装lerna：
 
-```bash
-# 当前发布的4.x有坑，且文档不全，还是先用3.x的版本吧，勇士请随意上
-yarn add lerna@3.22.1
+    ```bash
+    # 当前发布的4.x有坑，且文档不全，还是先用3.x的版本吧，勇士请随意上
+    yarn add lerna@3.22.1
 
-# npx lerna init // 初始化lerna项目
-```
+    # npx lerna init // 初始化lerna项目
+    ```
 
 3. 此时的目录结构
 
-```plain
-│  lerna.json
-│  package.json
-│  yarn.lock            
-└─packages
-```
+    ```plain
+    │  lerna.json
+    │  package.json
+    │  yarn.lock            
+    └─packages
+    ```
 
 4. 修改`lerna.json`
 
-```json
-{
-  "packages":  [
-    "packages/*"
-  ],
-  "version":  "independent", // 默认是1.0.0
-  "npmClient":  "yarn", // 采用yarn来管理依赖，而不是npm
-  "useWorkspaces":  true, // 使用yarn workspace
-}
-```
+    ```json
+    {
+      "packages":  [
+        "packages/*"
+      ],
+      "version":  "independent", // 默认是1.0.0
+      "npmClient":  "yarn", // 采用yarn来管理依赖，而不是npm
+      "useWorkspaces":  true, // 使用yarn workspace
+    }
+    ```
 
-`version`-lerna的两种模式：
+    `version`-lerna的两种模式：
 
-- Fixed（固定模式）：默认。所有package 共用一个版本号，任何`package`的 `major change`均会导致所有包都会进行`major version`的更新。
-- Independent（独立模式）：每个包都有自己独立的版本号。lerna会配合git，检查文件变动，只发布有改动的package。
+    - Fixed（固定模式）：默认。所有package 共用一个版本号，任何`package`的 `major change`均会导致所有包都会进行`major version`的更新。
+    - Independent（独立模式）：每个包都有自己独立的版本号。lerna会配合git，检查文件变动，只发布有改动的package。
 
 5. 修改`package.json`
 
-```json
-    {
-      "name": "my-monorepo", // 项目名称
-      "version": "1.0.0",
-      "license": "MIT",
-      "private": true, // 防止误发布
-      "workspaces": [ // 添加工作区间
-        "packages/*"
-      ],
-      "devDependencies": {
-        "lerna": "^3.22.1"
-      }
-}
-```
+    ```json
+        {
+          "name": "my-monorepo", // 项目名称
+          "version": "1.0.0",
+          "license": "MIT",
+          "private": true, // 防止误发布
+          "workspaces": [ // 添加工作区间
+            "packages/*"
+          ],
+          "devDependencies": {
+            "lerna": "^3.22.1"
+          }
+    }
+    ```
 
 6. 创建两个项目
    创建项目可以手动在`packages`目录下创建，也可以通过`lerna`，这里我们用`lerna`来创建:
 
-```
-    npx lerna create @my-monorepo/utils
-    npx lerna create @my-monorepo/components
-```
+    ```text
+        npx lerna create @my-monorepo/utils
+        npx lerna create @my-monorepo/components
+    ```
 
-同样，给`package.json`添加`private： true`防止误发布
+    同样，给`package.json`添加`private： true`防止误发布
 
-创建完并且调整后的目录结构：
+    创建完并且调整后的目录结构：
 
-```palin
-    |-- lerna.json
-    |-- package.json
-    |-- packages
-    |   |-- components
-    |   |   |-- README.md
-    |   |   |-- package.json
-    |   |   `-- src
-    |   |       |-- __test__
-    |   |       |   `-- index.spec.ts
-    |   |       `-- index.ts
-    |   `-- utils
-    |       |-- README.md
-    |       |-- package.json
-    |       `-- src
-    |           |-- __test__
-    |           |   `-- index.spec.ts
-    |           `-- index.ts
-    `-- yarn.lock
-```
+    ```palin
+        |-- lerna.json
+        |-- package.json
+        |-- packages
+        |   |-- components
+        |   |   |-- README.md
+        |   |   |-- package.json
+        |   |   `-- src
+        |   |       |-- __test__
+        |   |       |   `-- index.spec.ts
+        |   |       `-- index.ts
+        |   `-- utils
+        |       |-- README.md
+        |       |-- package.json
+        |       `-- src
+        |           |-- __test__
+        |           |   `-- index.spec.ts
+        |           `-- index.ts
+        `-- yarn.lock
+    ```
 
-基于`lerna`和`yarn workspace`项目的初始化完毕
+    基于`lerna`和`yarn workspace`项目的初始化完毕
 
 ### 添加ts
 
@@ -281,7 +281,7 @@ npx tsc --init // 生成tsconfig.json文件
 
 这个时候可以给每个`package`增加`tsconfig.json`作为单独的目录，继承外层的配置，这样`tsc`就会以这层作为根路径打包了
 
-```
+```js
 // utils/tsconfig.json
 {
   "extends":  "../../tsconfig.json",
@@ -303,7 +303,7 @@ eslint结合prettier进行统一的风格代码格式，网上介绍很多，不
 
 ##### 安装依赖
 
-```
+```text
   yarn add -D -W prettier
  
  // eslint 套餐...
@@ -328,7 +328,7 @@ eslint-plugin-prettier
 
 2. 添加命令
 
-```
+```text
 // package.json
 "lint":  "lerna  run  lint",
 "lint:fix":  "lerna  run  lint:fix",
@@ -351,7 +351,7 @@ eslint-plugin-prettier
 
 ##### 安装依赖
 
-```
+```bash
 yarn add -D -W 
 stylelint 
 stylelint-config-prettier 
@@ -374,7 +374,7 @@ stylelint-declaration-block-no-ignored-properties
 1. （略）添加配置文档：`.stylelintrc.json`、`.stylelintignore`
 2. 添加命令
 
-```
+```text
 // 其他package下的package.json按需修改
 "lint:style": "stylelint ./src/**/*.{vue,less}",
 "lint": "yarn lint:ts && yarn lint:es && yarn lint:style",
@@ -389,7 +389,7 @@ stylelint-declaration-block-no-ignored-properties
 
 ##### 安装依赖
 
-```
+```bash
 yarn add -D -W @ls-lint/ls-lint
 ```
 
@@ -399,7 +399,7 @@ yarn add -D -W @ls-lint/ls-lint
 
 2. 添加命令
 
-```
+```text
 // 根目录package.json
 "lint:ls": "ls-lint",
 "lint":  "yarn  lint:ls  &&  lerna  run  lint"
@@ -423,7 +423,7 @@ todo
 
 ##### 添加依赖
 
-```
+```bash
   yarn add -D -W 
  commitizen
  cz-customizable
@@ -434,7 +434,7 @@ todo
 1. 添加配置文件: `.cz-config.js`
 2. 添加命令
 
-```
+```text
 // 根路径package.json
 
 // script:
@@ -454,7 +454,7 @@ todo
 
 当然，如果不想用`yarn commit | git cz`代替原来原来的`git commit`，那么可以通过git-hook修改：
 
-```
+```text
 "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true" // 配个下面的husky可以修改钩子
 ```
 
@@ -467,7 +467,7 @@ todo
 
 ##### 安装依赖
 
-```
+```text
 yarn add -D -W 
 husky 
 @commitlint/cli 
@@ -483,7 +483,7 @@ commitlint-config-cz
 1. 添加配置文档：`.commitlintrc`
 2. 设置钩子
 
-```
+```text
 // package.json添加并执行
 "prepare": "yarn husky install"
 ```
@@ -506,13 +506,13 @@ commitlint-config-cz
 
 ##### 安装依赖
 
-```
+```bash
   yarn add -D -W lint-staged
 ```
 
 ##### 设置
 
-```
+```text
 // package.json
 // script
 "lint:staged":  "lint-staged"
@@ -527,7 +527,7 @@ commitlint-config-cz
 
 接着打开`.husky/pre-commit`，修改为：
 
-```
+```bash
 #!/bin/sh
 .  "$(dirname  "$0")/_/husky.sh"
 
@@ -589,7 +589,7 @@ yarn  lint:staged
 
 `lerna publish`默认会会执行`lerna version`，我们可以在`lerna.json`中对发布的进行一些配置
 
-```
+```text
  "command":  {
     "publish": {
       "allowBranch": ["master", "main"], // 限制 lerna version 只能在主分支执行
@@ -606,7 +606,7 @@ yarn  lint:staged
 
 #### 发布其他版本
 
-```
+```text
 lerna version --conventional-commits -y preminor --preid bi  // 将 1.0.0 -> 1.1.0-bi.0
 lerna version --conventional-commits -y --preid bi  // 将 1.1.0-bi.0 -> 1.1.0-bi.1
 ```
