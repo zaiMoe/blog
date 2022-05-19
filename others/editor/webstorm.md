@@ -2,7 +2,7 @@
 
 ### 不常用快捷键
 
-#### windows
+#### windows 快捷键
 
 ```bash
 ctrl + shift + ↑                # 移动行
@@ -12,7 +12,7 @@ Alt+F3          # 选择所有相同的词
 alt + j         # 选中相同单词
 ```
 
-#### mac
+#### mac 快捷键
 
 ```bash
 ⌘ == Command
