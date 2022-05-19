@@ -159,7 +159,7 @@ $filename$: fileNameWithoutExtension()
 ### 其他
 
 ```bash
-!*test.java,*.java,!Test*.java # 全局搜索时，使用 ! 排除特定文件，目录
+!*.d.ts,*.ts,*.tsx # 全局搜索时，使用 ! 排除特定文件，例如不搜索 d.ts 中的
 ```
 
 #### 规定折叠区域
