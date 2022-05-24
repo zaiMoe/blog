@@ -40,7 +40,7 @@
 - [composition-api实践](./js/vue/vue3/composition-api%E5%AE%9E%E8%B7%B5.md)
 - [compostion-api 解析](./js/vue/vue3/compostion-api解析.md)
 
-#### 其他
+#### vue 其他
 
 - [vuepress杂文](./js/vue/vuepress/vuepress.md)
 
