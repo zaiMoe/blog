@@ -17,7 +17,10 @@ shift + ctrl + [+/-]                # 全部 折叠/展开
 # 移动光标到行尾 / 行首，与 mac 上本身快捷键 command + [←/→] 一样
 # 需要修改快捷键， 搜索 Move Caret to Line [End/Start]，修改为下面的快捷键，以保持和 mac 一致
 # 注意：会和 【Select Next Tab】 的快捷键冲突，自行取决。 因为 win 默认移动到行尾行首的快捷键是 【home/end】，这里和 mac 的操作保持一致
-alt + [←/→]                 
+alt + [←/→]  
+
+# 修改 Move Caret to Line [End/Start] with Selection 的快捷键为
+shift + alt + [←/→] 
 ```
 
 #### mac 快捷键
@@ -28,6 +31,7 @@ alt + [←/→]
 Command + Option + [←/→]         # 回到上一次光标定位的位置
 ctrl + G                         # 选中下一个相同单词
 command + ctrl + G               # 选择所有相同的单词
+command + [←/→]                  # 移动光标到行尾 / 行首
 ```
 
 #### 其他配置
