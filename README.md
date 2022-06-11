@@ -14,7 +14,7 @@
 - [js中不常用api](./js/other/js中不常用api.md)
 - [浏览器的复制](./js/other/浏览器的复制.md)
 - [进制转换与位移操作](./js/other/进制转换与位移操作.md)
-- [Babel 小记]([./js/other/进制转换与位移操作.md](https://gitee.com/zaiMoe/babel-exercize))
+- [Babel 小记](https://gitee.com/zaiMoe/babel-exercize)
 
 ### typescript
 
@@ -68,7 +68,7 @@
 
 - [stylelint](./develop/工程化/规范化/stylelint.md)
 
-### 基础知识(面试)
+### 基础知识(面试bushi)
 
 - [web安全](./develop/browser/web安全.md)
 - [浏览器基础知识](./develop/browser/浏览器基础知识.md)
