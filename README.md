@@ -14,7 +14,7 @@
 - [js中不常用api](./js/other/js中不常用api.md)
 - [浏览器的复制](./js/other/浏览器的复制.md)
 - [进制转换与位移操作](./js/other/进制转换与位移操作.md)
-- [Babel 小记]([./js/other/进制转换与位移操作.md](https://gitee.com/zaiMoe/babel-exercize))
+- [Babel 小记](https://gitee.com/zaiMoe/babel-exercize)
 
 ### typescript
 
@@ -40,7 +40,7 @@
 - [composition-api实践](./js/vue/vue3/composition-api%E5%AE%9E%E8%B7%B5.md)
 - [compostion-api 解析](./js/vue/vue3/compostion-api解析.md)
 
-#### 其他
+#### vue 其他
 
 - [vuepress杂文](./js/vue/vuepress/vuepress.md)
 
@@ -49,6 +49,7 @@
 - [前端换肤](./frontend-practice/前端换肤.md)
 - [项目被嵌入方案](./frontend-practice/项目被嵌入方案.md)
 - [X6流程图-两点之间的避障功能](./frontend-practice/流程图-两点之间的避障功能.md)
+- [前端 RBAC 权限方案](./frontend-practice/前端RBAC权限方案.md)
 
 ### 工程化
 
@@ -67,7 +68,7 @@
 
 - [stylelint](./develop/工程化/规范化/stylelint.md)
 
-### 基础知识(面试)
+### 基础知识(面试bushi)
 
 - [web安全](./develop/browser/web安全.md)
 - [浏览器基础知识](./develop/browser/浏览器基础知识.md)

@@ -5,22 +5,33 @@
 #### windows 快捷键
 
 ```bash
-ctrl + shift + ↑                # 移动行
-ctrl + alt + ←                  # 移动到上次操作的地方
-ctrl + shift + alt + j          # 选择相同内容
-Alt+F3          # 选择所有相同的词
-alt + j         # 选中相同单词
+ctrl + shift + [↑/↓]                # 移动行
+ctrl + alt + [←/→]                  # 回到上一次光标定位的位置
+ctrl + shift + alt + j              # 选择相同内容
+Shift + Ctrl + Alt + J              # 选择所有相同的单词
+alt + j                             # 选中下一个相同单词
+ctrl + [xcv]                        # 剪切、复制、粘贴
+shift + entry                       # 在当前行下面另起一行
+shift + ctrl + [+/-]                # 全部 折叠/展开
+
+# 移动光标到行尾 / 行首，与 mac 上本身快捷键 command + [←/→] 一样
+# 需要修改快捷键， 搜索 Move Caret to Line [End/Start]，修改为下面的快捷键，以保持和 mac 一致
+# 注意：会和 【Select Next Tab】 的快捷键冲突，自行取决。 因为 win 默认移动到行尾行首的快捷键是 【home/end】，这里和 mac 的操作保持一致
+alt + [←/→]  
+
+# 修改 Move Caret to Line [End/Start] with Selection 的快捷键为
+shift + alt + [←/→] 
 ```
 
 #### mac 快捷键
 
-```bash
-⌘ == Command
-⌥ == Option
+> 只标注和 win 不一样的地方， 即 win 上 shift、ctrl = mac 上的 shift、Command 
 
-⌘ + ⌥ + 方向键 # 跳到上一次光标位置
-shift + ⌘ + +/- # 全部 折叠/展开
-⌘ + ⌥ + +/- # 代码块 折叠/展开
+```bash
+Command + Option + [←/→]         # 回到上一次光标定位的位置
+ctrl + G                         # 选中下一个相同单词
+command + ctrl + G               # 选择所有相同的单词
+command + [←/→]                  # 移动光标到行尾 / 行首
 ```
 
 #### 其他配置
