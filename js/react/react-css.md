@@ -19,7 +19,17 @@
 
 ##### 传统方案
 
-传统方案就是通过 namespace 来处理，例如 [BEM 命名](http://getbem.com/naming/)，
+传统方案就是通过 namespace 来处理，例如 [BEM 命名](http://getbem.com/naming/):
+
+```css
+/* .模块名__元素名--修饰器名 */
+.card {}
+.card__head {}
+.card__menu {}
+.card__menu-item {}
+.card__menu-item--active {}
+.card__menu-item--disable {}
+```
 
 ### 写类名
 
