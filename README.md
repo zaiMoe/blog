@@ -14,7 +14,7 @@
 - [js中不常用api](./js/other/js中不常用api.md)
 - [浏览器的复制](./js/other/浏览器的复制.md)
 - [进制转换与位移操作](./js/other/进制转换与位移操作.md)
-- [Babel 小记](https://gitee.com/zaiMoe/babel-exercize)
+- [Babel笔记](https://gitee.com/zaiMoe/babel-exercize)
 
 ### typescript
 
