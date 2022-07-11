@@ -62,7 +62,7 @@ const html = `<div class="${styles.title}"></div>`
 const html = "<div class='styles__title__3xrQQ'></div>"
 ```
 
-可以看到编译后，class 后面自带了一段类似 hash 的值，来实现 class 的局部作用域。采用 CSS Module 后，写样式就可以全部扁平，不需要嵌套来保证各种权重问题，写起来和写普通 css 差不多，只是使用的时候需要特别引入，对于业务开发来说，上手成本相对较低，而且基本上所有的编译工具都支持，例如 [vite 只需要在 css 文件加上 `.moduel.css` 的后缀就能开启](https://vitejs.dev/guide/features.html#css-modules)。
+可以看到编译后，class 后面自带了一段类似 hash 的值，来实现 class 的局部作用域。采用 CSS Module 后，写样式就可以扁平，不需要嵌套来保证各种权重问题，写起来和写普通 css 差不多，只是使用的时候需要特别引入，对于业务开发来说，上手成本相对较低，而且基本上所有的编译工具都支持，例如 [vite 只需要在 css 文件加上 `.moduel.css` 的后缀就能开启](https://vitejs.dev/guide/features.html#css-modules)
 
 ### 原子 css
 
