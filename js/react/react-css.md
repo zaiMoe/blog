@@ -12,8 +12,8 @@
 
 这种是学习成本最低的方案，基本上就和普通开发一样，直接写css，结合预处理器（sass、less等），写起来可以非常方便。但是这种方案一般会带来2个问题：
 
-- 类名污染的问题
-- 无用类名造成的冗余
+- 全局污染
+- 命名混乱
 
 #### 类名污染
 
@@ -65,6 +65,7 @@ const html = "<div class='styles__title__3xrQQ'></div>"
 采用 CSS Module 后：
 
 - 消除了全局命名的问题，在写 className 时可以随意起名字，不用担心命名冲突
+  可以减少嵌套，层级结构清晰，也容易复用
 - 可以支持目前各种已有的 css 工具，比如 less、sass、postcss 等，上手成本低，与原生 css 只有使用上的区别
 - 基本上所有的编译工具都支持，例如 [vite 只需要在 css 文件加上 `.moduel.css` 的后缀就能开启](https://vitejs.dev/guide/features.html#css-modules)
 
