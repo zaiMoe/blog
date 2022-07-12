@@ -40,11 +40,11 @@
 .card__menu-item--disable {}
 ```
 
-但这些方案都都需要制定命名规范，也需要开发人员去学习，否则还是可能造成在某些地方写了相同的类名。因此一搬适用于组件库开发这类团队，因为人员相对稳定一些，对于业务团队，项目一半迭代快，人员流动大的，会增加上手成本。并且由于 css 都是全局性的，也有可能与第三方库造成冲突
+但是这些方案在使用时可能会增加使用的负担，例如 BEM 需要制定命名规范，也需要开发人员去学习，否则还是可能造成在某些地方写了相同的类名。因此一搬适用于组件库开发这类团队，因为人员相对稳定一些，对于业务团队，项目一半迭代快，人员流动大的，会增加上手成本。并且由于 css 都是全局性的，也有可能与第三方库造成冲突
 
 ##### [CSS Mmodule](https://github.com/css-modules/css-modules)
 
-CSS Module 是利用 webpack 等构建工具使 class 带有作用域，看个例子：
+CSS Module 是利用 webpack 等构建工具使 class 带有作用域，会在编译后，将 class 带了一段类似 hash 的值，来实现 class 的局部作用域，使用：
 
 ```jsx
 
@@ -62,7 +62,11 @@ const html = `<div class="${styles.title}"></div>`
 const html = "<div class='styles__title__3xrQQ'></div>"
 ```
 
-可以看到编译后，class 后面自带了一段类似 hash 的值，来实现 class 的局部作用域。采用 CSS Module 后，写样式就可以全部扁平，不需要嵌套来保证各种权重问题，写起来和写普通 css 差不多，只是使用的时候需要特别引入，对于业务开发来说，上手成本相对较低，而且基本上所有的编译工具都支持，例如 [vite 只需要在 css 文件加上 `.moduel.css` 的后缀就能开启](https://vitejs.dev/guide/features.html#css-modules)。
+采用 CSS Module 后：
+
+- 消除了全局命名的问题，在写 className 时可以随意起名字，不用担心命名冲突
+- 可以支持目前各种已有的 css 工具，比如 less、sass、postcss 等，上手成本低，与原生 css 只有使用上的区别
+- 基本上所有的编译工具都支持，例如 [vite 只需要在 css 文件加上 `.moduel.css` 的后缀就能开启](https://vitejs.dev/guide/features.html#css-modules)
 
 ### 原子 css
 
@@ -71,3 +75,4 @@ const html = "<div class='styles__title__3xrQQ'></div>"
 ## 总结
 
 - [CSS分层](https://www.w3cplus.com/css/css-layers.html)
+- [CSS Modules](https://glenmaddern.com/articles/css-modules)
