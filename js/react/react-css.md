@@ -66,10 +66,33 @@ const html = "<div class='styles__title__3xrQQ'></div>"
 
 - 消除了全局命名的问题，在写 className 时可以随意起名字，不用担心命名冲突
   可以减少嵌套，层级结构清晰，也容易复用
-- 可以支持目前各种已有的 css 工具，比如 less、sass、postcss 等，上手成本低，与原生 css 只有使用上的区别
+- 可以支持目前各种已有的 css 工具，比如 less、sass、postcss 等，上手成本低，与原生 css 只有使用上的区别，几乎 0 学习成本
 - 基本上所有的编译工具都支持，例如 [vite 只需要在 css 文件加上 `.moduel.css` 的后缀就能开启](https://vitejs.dev/guide/features.html#css-modules)
 
-### 原子 css
+### 原子 css （Atomic CSS）
+
+#### 什么是css原子化？
+
+关于 原子化css 大家可能想到的就是 Bootstrap，但 Bootstrap 其实是一种组件化的 css，但提供了一些[原子类的css](https://getbootstrap.com/docs/5.1/utilities/api/#api-explained)，例如：
+
+```css
+.m-0 {
+  margin: 0;
+}
+.text-red {
+  color: red;
+}
+```
+
+但 原子化css 是一种css框架：
+
+- 是一种 CSS 的架构方式
+- 它倾向于小巧且用途单一的 class
+- 会以视觉效果进行命名
+
+例如 [Tailwind CSS](https://tailwindcss.com/)，[Windi CSS](https://cn.windicss.org/) 以及 [Tachyons](https://tachyons.io/) 等
+
+#### tailwindcss
 
 ### css in js
 
@@ -77,3 +100,4 @@ const html = "<div class='styles__title__3xrQQ'></div>"
 
 - [CSS分层](https://www.w3cplus.com/css/css-layers.html)
 - [CSS Modules](https://glenmaddern.com/articles/css-modules)
+- [重新构想原子化 CSS](https://antfu.me/posts/reimagine-atomic-css-zh)
