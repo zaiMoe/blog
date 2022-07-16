@@ -84,7 +84,7 @@ const html = "<div class='styles__title__3xrQQ'></div>"
 }
 ```
 
-而 原子化css 是一种css框架：
+而 原子化css 是一种css框架
 
 - 是一种 CSS 的架构方式
 - 它倾向于小巧且用途单一的 class
