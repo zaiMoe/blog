@@ -69,11 +69,9 @@ const html = "<div class='styles__title__3xrQQ'></div>"
 - 可以支持目前各种已有的 css 工具，比如 less、sass、postcss 等，上手成本低，与原生 css 只有使用上的区别，几乎 0 学习成本
 - 基本上所有的编译工具都支持，例如 [vite 只需要在 css 文件加上 `.moduel.css` 的后缀就能开启](https://vitejs.dev/guide/features.html#css-modules)
 
-### 原子 css （Atomic CSS）
+### 原子 css
 
-#### 什么是css原子化？
-
-关于 原子化css 大家可能想到的就是 Bootstrap，但 Bootstrap 其实是一种组件化的 css，但提供了一些[原子类的css](https://getbootstrap.com/docs/5.1/utilities/api/#api-explained)，例如：
+关于 原子化css 大家可能想到的就是 Bootstrap，Bootstrap 虽然是一种组件化的 css，但也提供了一些[原子类的css](https://getbootstrap.com/docs/5.1/utilities/api/#api-explained)，例如：
 
 ```css
 .m-0 {
@@ -84,15 +82,44 @@ const html = "<div class='styles__title__3xrQQ'></div>"
 }
 ```
 
-而 原子化css 是一种css框架
+而 原子化css 的特点有：
 
 - 是一种 CSS 的架构方式
-- 它倾向于小巧且用途单一的 class
-- 会以视觉效果进行命名
+- 以单个效果构成一个 class
 
-例如 [Tailwind CSS](https://tailwindcss.com/)，[Windi CSS](https://cn.windicss.org/) 以及 [Tachyons](https://tachyons.io/) 等
+常见的库有 [Tailwind CSS](https://tailwindcss.com/)，[Windi CSS](https://cn.windicss.org/) 以及 [Tachyons](https://tachyons.io/) 等
 
-#### tailwindcss
+在使用上则变成了：
+
+```html
+<div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
+  <div class="shrink-0">
+    <img class="h-12 w-12" src="/img/logo.svg" alt="ChitChat Logo">
+  </div>
+  <div>
+    <div class="text-xl font-medium text-black">ChitChat</div>
+    <p class="text-slate-500">You have a new message!</p>
+  </div>
+</div>
+```
+
+[Tailwind Demo](https://tailwindcss.com/docs/utility-first)
+
+这种方式，其优点是：
+
+- 可以在不写一行 css 的情况下，完成基本的页面设计
+- 减少很多 css 的代码量，非常好的减小了 css 的体积，少了很多冗余的 css
+- 不需要再为class取个什么名字而苦恼，可维护性，可复用性更强
+
+但也能明显看出其缺点：
+
+- 需要熟悉这套写法，要记忆很多类名（WS 和 vs code 都有插件提示）
+- 对于复杂的视觉效果，需要写很多的类名，不方便阅读，也不方便维护（比如上面的demo）
+- 打包后的体积从未消失，只是换了一个方式(html)存在
+
+从个人的使用体验来说，只能说真香，css 写久了其实就会发现很多样式需要经常写，比如布局中(flex, grid)，父子元素都需要起类名，加一个 css 文件去写，挺麻烦的，因此在用 Tailwind 之前，也会在团队中封装了一些原子css来减少一些css的书写，但对于其他新加入维护的新同事来说（可以来自其他团队），会不清楚这套类名定义，有一定的上手成本。而采用 tailwind css 来统一各个团队的标准，可以无压力的上手。
+
+原子化 css 确实提升的开发体验，所以也受到了更多人的青睐。对于上面提到的难维护，难阅读的情况也确实存在，我自己对于超过 7 个 class 的复杂 UI，一半就会提取成一个css文件来实现，方便后续调整。
 
 ### css in js
 
