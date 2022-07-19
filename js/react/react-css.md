@@ -123,6 +123,9 @@ const html = "<div class='styles__title__3xrQQ'></div>"
 
 ### css in js
 
+1. react 原来的css写法
+2. styled-components
+
 ## 总结
 
 - [CSS分层](https://www.w3cplus.com/css/css-layers.html)
