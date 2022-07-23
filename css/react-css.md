@@ -6,7 +6,7 @@
 2. 原子类 css，即直接写类名，由 css 框架生成各种类名，比如 tailwindcss
 3. css in js
 
-虽然方案非常多，各种库和解决方案都几十种，给人一种眼花缭乱的感觉，但实际开发中，一般选择自己喜欢的方案就行，或者项目用什么，就用那种就行。当然，如果是要做技术选型，还是可以进一步分析下，选择适合团队的那种
+虽然虽然分为上面3大类吗，但具体的实现方案非常多，各种库和解决方案，使用文章也非常多，给人一种眼花缭乱的感觉，下面我们一起简单的对比下这三种，来看看那种更适合自己的需求！
 
 ### 原生 css
 
@@ -69,6 +69,20 @@ const html = "<div class='styles__title__3xrQQ'></div>"
 - 可以支持目前各种已有的 css 工具，比如 less、sass、postcss 等，上手成本低，与原生 css 只有使用上的区别，几乎 0 学习成本
 - 基本上所有的编译工具都支持，例如 [vite 只需要在 css 文件加上 `.moduel.css` 的后缀就能开启](https://vitejs.dev/guide/features.html#css-modules)
 
+另外提一下 Vue 的 css 解决方案：
+
+```html
+<style scoped>
+/* 局部样式 */
+</style>
+
+<style>
+/* 全局样式 */
+</style>
+```
+
+加上了 `scoped` 也是类似 css module 的方案，但不需要特殊的写法, 使用上最接近原生的体验的，非常的简洁自然，如果是用 Vue 开发的，可以直接使用。
+
 ### 原子 css
 
 关于 原子化css 大家可能想到的就是 Bootstrap，Bootstrap 虽然是一种组件化的 css，但也提供了一些[原子类的css](https://getbootstrap.com/docs/5.1/utilities/api/#api-explained)，例如：
@@ -123,11 +137,50 @@ const html = "<div class='styles__title__3xrQQ'></div>"
 
 ### css in js
 
-1. react 原来的css写法
-2. styled-components、styled-jsx
+react 官方给出了[一种 style 的写法](https://zh-hans.reactjs.org/docs/dom-elements.html#style)：
+
+```jsx
+const divStyle = {
+  color: 'blue',
+  backgroundImage: 'url(' + imgUrl + ')',
+};
+
+function HelloWorldComponent() {
+  return <div style={divStyle}>Hello World!</div>;
+}
+```
+
+这是一种 `css in js` 的方案：
+> JSS是一种比CSS更强大的抽象。 它使用JavaScript作为语言以声明和可维护的方式描述样式。 它是一个高性能的JS到CSS编译器，它在运行时和服务器端工作。 这个核心库是低级别和框架无关的。 它大约是6KB（缩小和压缩），并且可以通过插件API进行扩展。
+
+`css in js` 能利用 js 的能力来增强css，但官方提供的这种方案并不支持所有的 `CSS` 功能，例如选择器，伪选择器。同时引入了新的学习成本（驼峰化名称，写法繁琐等），于是有了更多的方案：
+
+- [JSS](https://cssinjs.org/)
+- [styled-jsx](https://github.com/vercel/styled-jsx)
+- [styled-components](https://styled-components.com/)
+- [Emotion](https://emotion.sh/docs/introduction)
+
+`css in js` 的优点：
+
+- 组件化思考，不需要维护一份 css 样式文件，而且可以非常方便的通过检测创建的变量使用使用，来删除无用的 css，不会造成冗余
+- 可以利用 js 的全部功能来增强CSS，轻松地在JS和CSS之间共享常量和函数。
+- 可以解决css污染，都是支持局部样式和全局样式的方案
+
+但至于选择那种，并没有统一的方案，参考下 npm trends:
+
+![](./static/common/css-%E6%96%B9%E6%A1%88%E9%80%89%E6%8B%A9.png)
+
+目前最受欢迎的是 styled-components，他提供了一些比较灵活的使用方案，相对来说学习成本会高一些。而我会更加喜欢 styled-jsx，毕竟作为一个经常写业务的，需要考虑团队成员的学习和维护成本。
 
 ## 总结
+
+虽然写了那么多，但实际开发中，一般选择自己喜欢的方案就行，或者项目用什么，就用那种就行。比如我由于常年写业务，所以更加喜欢 css module 这种低学习成本，更加贴近原生的书写方案，常用的方案是 `css module + less/scss + classnames`。
+
+## 参考
 
 - [CSS分层](https://www.w3cplus.com/css/css-layers.html)
 - [CSS Modules](https://glenmaddern.com/articles/css-modules)
 - [重新构想原子化 CSS](https://antfu.me/posts/reimagine-atomic-css-zh)
+- [「译文」：CSS-in-JS 你所应该知道的一切](https://juejin.cn/post/6844903873962835982)
+- [React拾遗：从10种现在流行的 CSS 解决方案谈谈我的最爱 （上）](https://juejin.cn/post/6844903633109139464)
+- [中后台 CSS Modules 最佳实践](https://juejin.cn/post/7097312790511091719)
