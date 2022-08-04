@@ -22,6 +22,8 @@
 
 #### 旋转数组
 
+- [搜索旋转排序数组](https://leetcode.cn/problems/search-in-rotated-sorted-array/solution/xuan-zhuan-shu-zu-er-fen-fa-by-zaimoe-yjil/)
+
 ### 二叉树查找
 
 特点:
