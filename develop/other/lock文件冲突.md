@@ -18,7 +18,152 @@ yarn install
   ...
 ```
 
-但是其背后采用什么样的策略来解决冲突，则是完全不明白。 于是根据各自的发布日志，找到了相关的 PR，来了解解决的策略。
+但是其背后采用什么样的策略来解决冲突，则是完全不明白。 于是根据各自的发布日志，找到了相关的 PR，来了解解决的策略。以 pnpm 的 [pr](https://github.com/pnpm/pnpm/pull/2965/commits/37fffbefa5a9136f2e189c01a5edf3c00ac48018) 来找到相关的改动：
+
+首先可以找到处理冲突的文件和方法，这里先不管函数的入参是什么。 我们接着从 pr 种找到那里调用这个函数的地方
+
+```ts
+// https://github.com/pnpm/pnpm/blob/main/packages/merge-lockfile-changes/src/index.ts#L5
+
+
+export default function mergeLockfileChanges (ours: Lockfile, theirs: Lockfile) {
+    // ...
+
+    // ...
+}
+
+```
+
+```ts
+// https://github.com/pnpm/pnpm/blob/main/packages/lockfile-file/src/read.ts#L64
+
+async function _read (
+  lockfilePath: string,  // lock 文件路径
+  prefix: string, // only for logging
+  opts: {
+    autofixMergeConflicts?: boolean // 是否自动处理冲突
+    wantedVersion?: number
+    ignoreIncompatible: boolean
+  }
+): Promise<{
+    lockfile: Lockfile | null
+    hadConflicts: boolean
+}> {
+
+    // ... 
+
+    
+    let lockfileFile: LockfileFile
+    let hadConflicts!: boolean
+    try {
+
+        // 解析 yaml 文件
+        lockfileFile = yaml.load(lockfileRawContent) as Lockfile
+        hadConflicts = false
+    } catch (err: any) { 
+
+        // 解析错误
+        if (!opts.autofixMergeConflicts || !isDiff(lockfileRawContent)) {
+            throw new PnpmError('BROKEN_LOCKFILE', `The lockfile at "${lockfilePath}" is broken: ${err.message as string}`)
+        }
+
+        // 有冲突
+        hadConflicts = true
+        lockfileFile = autofixMergeConflicts(lockfileRawContent) // 合并冲突
+        logger.info({
+            message: `Merge conflict detected in ${WANTED_LOCKFILE} and successfully merged`,
+            prefix,
+        })
+    }
+
+    // ...
+}
+
+```
+
+```ts
+// https://github.com/pnpm/pnpm/blob/main/packages/lockfile-file/src/gitMergeFile.ts
+
+import { Lockfile } from '@pnpm/lockfile-types'
+import mergeLockfileChanges from '@pnpm/merge-lockfile-changes'
+import yaml from 'js-yaml'
+
+const MERGE_CONFLICT_PARENT = '|||||||'
+const MERGE_CONFLICT_END = '>>>>>>>'
+const MERGE_CONFLICT_THEIRS = '======='
+const MERGE_CONFLICT_OURS = '<<<<<<<'
+
+export function autofixMergeConflicts (fileContent: string) {
+
+  
+  const { ours, theirs } = parseMergeFile(fileContent)
+
+  // 此处传入
+  // ours： 当前分支原 lock 文件的依赖数据
+  // theris: 于 master 分支有冲突的部分依赖数据
+  return mergeLockfileChanges(
+    yaml.load(ours) as Lockfile,
+    yaml.load(theirs) as Lockfile
+  )
+}
+
+// // 根据冲突的 git 标识， 将冲突的代码分为 2 部分
+function parseMergeFile (fileContent: string) {
+  const lines = fileContent.split(/[\n\r]+/g)
+  let state: 'top' | 'ours' | 'theirs' | 'parent' = 'top'
+  const ours = []
+  const theirs = []
+  while (lines.length > 0) {
+    const line = lines.shift() as string
+    if (line.startsWith(MERGE_CONFLICT_PARENT)) {
+      state = 'parent'
+      continue
+    }
+
+    // 此处为当前分支的依赖，于没有冲突的部分放在一起
+    if (line.startsWith(MERGE_CONFLICT_OURS)) {
+      state = 'ours'
+      continue
+    }
+
+    // master 分支依赖，于当前分支有冲突的部分， 单独提出来
+    if (line === MERGE_CONFLICT_THEIRS) {
+      state = 'theirs'
+      continue
+    }
+    if (line.startsWith(MERGE_CONFLICT_END)) {
+      state = 'top'
+      continue
+    }
+    if (state === 'top' || state === 'ours') ours.push(line)
+    if (state === 'top' || state === 'theirs') theirs.push(line)
+  }
+  return { ours: ours.join('\n'), theirs: theirs.join('\n') }
+}
+
+export function isDiff (fileContent: string) {
+  return fileContent.includes(MERGE_CONFLICT_OURS) &&
+    fileContent.includes(MERGE_CONFLICT_THEIRS) &&
+    fileContent.includes(MERGE_CONFLICT_END)
+}
+```
+
+```ts
+// https://github.com/pnpm/pnpm/blob/main/packages/merge-lockfile-changes/src/index.ts#L84
+
+function mergeVersions (ourValue: string, theirValue: string) {
+  if (ourValue === theirValue || !theirValue) return ourValue
+  if (!ourValue) return theirValue
+  const [ourVersion] = ourValue.split('_')
+  const [theirVersion] = theirValue.split('_')
+
+  // 使用最新的版本
+  if (semver.gt(ourVersion, theirVersion)) {
+    return ourValue
+  }
+  return theirValue
+}
+```
 
 ### 第3种的使用场景
 
