@@ -74,6 +74,7 @@
 - [web安全](./develop/browser/web安全.md)
 - [浏览器基础知识](./develop/browser/浏览器基础知识.md)
 - [js引擎](./develop/browser/js引擎.md)
+- [algorithm](./base//algorithm/base/常见算法.md)
 
 #### 计算机网络
 
