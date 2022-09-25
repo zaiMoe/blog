@@ -34,6 +34,8 @@ react 实现这一步的关键是，将 同步更新 变为 可中断的 异步�
 
 react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
+- [Suspense](https://zh-hans.reactjs.org/docs/react-api.html#suspense): 用于组件的异步加载
+
 ## 名词解释
 
 - [Scheduler](https://github.com/facebook/react/tree/v18.2.0/packages/scheduler)（调度器）—— 调度任务的优先级，高优任务优先进入Reconciler，react 16 新增
@@ -47,3 +49,14 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
   - [ReactNative](https://github.com/facebook/react/tree/v18.2.0/packages/react-native-renderer) 渲染器，渲染App原生组件
   - [ReactTest](https://github.com/facebook/react/tree/v18.2.0/packages/react-test-renderer) 渲染器，渲染出纯Js对象用于测试
   - [ReactArt](https://github.com/facebook/react/tree/v18.2.0/packages/react-art) 渲染器，渲染到Canvas, SVG 或 VML (IE8)
+
+## 不常用 hooks 说明
+
+> <https://zh-hans.reactjs.org/docs/react-api.html#suspense>
+
+- useDeferredValue
+- useTransition
+- useId
+- useImperativeHandle
+- useLayoutEffect
+- useDebugValue
