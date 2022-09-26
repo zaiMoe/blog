@@ -34,7 +34,7 @@ react 实现这一步的关键是，将 同步更新 变为 可中断的 异步�
 
 react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
-- [Suspense](https://zh-hans.reactjs.org/docs/react-api.html#suspense): 用于组件的异步加载
+- [Suspense](https://zh-hans.reactjs.org/docs/react-api.html#suspense): 用于组件的异步加载，在组件没有加载完成前，显示 loading 状态
 
 ## 名词解释
 
