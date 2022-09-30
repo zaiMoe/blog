@@ -64,3 +64,5 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
 [Suspense](https://zh-hans.reactjs.org/docs/react-api.html#suspense): `React@16.6` 新增, 用于组件的异步加载，在组件没有加载完成前，显示 `fallback` 的状态。
 在 `react@18` 之前因为支持不完善，称为 `Legacy Suspense`， 而在 `react@18` 之后可以称为 `Concurrent Suspense`，[支持的场景更多了](https://juejin.cn/post/6998086416836067365)。
+
+### useDeferredValue
