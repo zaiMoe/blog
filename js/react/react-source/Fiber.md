@@ -29,3 +29,28 @@ workInProgressFiber.alternate === currentFiber;
 ```
 
 - `rootFiber`: React 应用的根节点通过使 current 指针在不同 `Fiber` 树的 `rootFiber` 间切换来完成 `current Fiber` 树指向的切换。即当 `workInProgress Fiber` 树构建完成交给 `Renderer` 渲染在页面上后，应用根节点的 `current` 指针指向 `workInProgress Fiber树` ，此时 `workInProgress Fiber树` 就变为 `current Fiber树`。
+
+## JSX 与 Fiber 节点
+
+函数式组件的编译后的结构：
+
+![](./imgs/fun-component.png)
+
+JSX 会被编译为 `React.createElement` 函数
+
+![](./imgs/fun-component-jsxfn.png)
+
+![](./imgs/fun-component-jsx.png)
+
+从上面的内容我们可以发现，`JSX` 是一种描述当前组件内容的数据结构，他不包含组件 `schedule`、`reconcile`、`render` 所需的相关信息。
+
+比如如下信息就不包括在 `JSX` 中：
+
+- 组件在更新中的优先级
+- 组件的state
+- 组件被打上的用于 `Renderer` 的标记
+- 这些内容都包含在 `Fiber` 节点中。
+
+所以，在组件 `mount` 时，`Reconciler` 根据 `JSX` 描述的组件内容生成组件对应的Fiber节点。
+
+在 `update` 时，`Reconciler` 将 JSX 与 Fiber 节点保存的数据对比，生成组件对应的 `Fiber` 节点，并根据对比结果为 `Fiber` 节点打上标记。
