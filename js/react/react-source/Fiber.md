@@ -30,13 +30,25 @@ workInProgressFiber.alternate === currentFiber;
 
 - `rootFiber`: React 应用的根节点通过使 current 指针在不同 `Fiber` 树的 `rootFiber` 间切换来完成 `current Fiber` 树指向的切换。即当 `workInProgress Fiber` 树构建完成交给 `Renderer` 渲染在页面上后，应用根节点的 `current` 指针指向 `workInProgress Fiber树` ，此时 `workInProgress Fiber树` 就变为 `current Fiber树`。
 
-## JSX 与 Fiber 节点
+## jsx 与 Fiber 节点
 
-函数式组件的编译后的结构：
+jsx 会被编译为 `React.createElement` 函数，关于 jsx 与 `React.createElement` 的关系可以看[这篇文章](../%E4%B8%BA%E4%BD%95%E8%A6%81%E5%9C%A8%E9%A1%B6%E9%83%A8%E5%BC%95%E5%85%A5React.md)
+
+```jsx
+const ReactLink = () => {
+    return  <a className="App-link" href="https://reactjs.org">
+        Learn React
+    </a>
+}
+
+console.log(<ReactLink/>)
+```
+
+上面函数式组件执行后返回的 `React Component` 结构：
 
 ![](./imgs/fun-component.png)
 
-JSX 会被编译为 `React.createElement` 函数
+其中 `$$typeof` 表示这是一个 `React Element` 对象，可以通过 `type` 属性看组件执行函数
 
 ![](./imgs/fun-component-jsxfn.png)
 

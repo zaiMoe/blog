@@ -9,24 +9,40 @@ import React from 'react'
 import * as React from 'react'
 ```
 
-实际上是因为 react 在编译 jsx 后的需要使用 `React.createElement`，举个 🌰 ：
+实际上是因为 react 在编译 jsx 后的需要使用 `React.createElement`，[举个例子](https://babeljs.io/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&corejs=3.21&spec=false&loose=false&code_lz=MYewdgzgLgBAwiArmWBeGAKA3mRBbAXwEoZUA-GLAKAEgAnAUykTrBgB4AHMnfA9gPTcqBANxUqoSLACCnTqUwlylCfSYs27ACYBLAG5kqME6fYALAIxlBVo6bMJksXHlRZLBGAPtmBewxEqIA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=react&prettier=false&targets=&version=7.19.3&externalPlugins=&assumptions=%7B%7D) ：
 
 ```jsx
-const App = () => (
-  <div>Hello World!!!</div>
-);
+const Count = ({num}) => {
+ return <p>{num}</p>
+};
+
+const App = () => {
+
+ return <div>
+      <h1></h1>
+      <Count num={1} />
+    </div>
+}
 
 // 编译后
-var App = function App() {
-  return React.createElement(
-    "div",
-    null,
-    "Hello World!!!"
+const Count = ({
+  num
+}) => {
+  return React.createElement("p", null, num);
+};
+
+const App = () => {
+  return React.createElement("div", 
+    null, 
+    React.createElement("h1", null), 
+    React.createElement(Count, {
+      num: 1
+    })
   );
 };
 ```
 
-[jsx 本质是一种语法糖](https://zh-hans.reactjs.org/docs/jsx-in-depth.html)，最终也是转化为用 `React.createElement` 来创建，也就是开头要引入的原因
+[jsx 本质是一种语法糖](https://zh-hans.reactjs.org/docs/jsx-in-depth.html)，最终也是转化为用 `React.createElement` 来创建，也就是 jsx 是 `React.createElement` 的语法糖，也就是开头要引入的原因
 
 ### 两者的区别
 
@@ -146,3 +162,7 @@ console.log(_react.default);
 1. 使用自动导入方案（推荐）
 2. `import * as React from 'react'` （兼容性好）
 3. `import React from 'react'` （ts 配合 allowSyntheticDefaultImports 忽略报错）
+
+## 参考
+
+- [react的jsx和React.createElement是什么关系？面试常问](https://zhuanlan.zhihu.com/p/570276550)
