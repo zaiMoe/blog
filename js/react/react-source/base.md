@@ -114,3 +114,17 @@ react 的 packages 目录
 ├─shared
 ├─use-subscription
 ```
+
+## 调试源码
+
+一般来说可以直接通过 `create-react-app` 创建要给 react 应用，然后直接在页面上打断点调试 `react-dom.development.js`。 不过看了[这篇文章](https://juejin.cn/post/7126501202866470949)后，发现如果能直接关联 react 仓库的代码来调试，会更容易对应到上面说的目录结构
+
+### source-map 方法
+
+1. 先按照 [这篇文章](https://juejin.cn/post/7126501202866470949) 将 react 的 source-map 文件编译出来，有报错的话，文中有解释，并且报错信息也会提出什么插件的原因
+2. 将 `build` 命令后，`build/node_modules/` 目录下的 `react`、`react-com`、`seheduler` 分别执行下 `yarn link`
+3. 来到 `create-react-app` 创建的项目，在 `yarn install` 之后执行 `yarn link react react-com seheduler`，然后运行就能映射源目录文件了
+
+    ![](./imgs/react-debugger.png)
+
+4. 这里不用按照文章所写的，通过 webapck 的 `external` 配置处理，在当前的 `create-react-app` 中引入了 [source-map-loader](https://webpack.docschina.org/loaders/source-map-loader/)，该 loader 会在 webpack 编译时，将第三方库的 source-map 也一起处理。
