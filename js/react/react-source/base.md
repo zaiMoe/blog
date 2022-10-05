@@ -69,3 +69,48 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 ### useDeferredValue
 
 ### useId
+
+## react 仓库说明
+
+react 的 packages 目录
+
+```bash
+# react 的核心逻辑，与平台无关的接口，如 组件、hooks、
+├─react
+
+# render 相关
+├─react-dom
+├─react-art
+├─react-test-renderer
+├─react-noop-renderer
+├─react-native-renderer
+
+# reconciler
+├─react-reconciler
+
+# 调度器实现
+├─scheduler
+
+├─react-devtools
+├─react-devtools-core
+├─react-devtools-extensions
+├─react-devtools-inline
+├─react-devtools-shared
+├─react-devtools-shell
+├─react-devtools-timeline
+
+# 其他 略
+├─react-fetch
+├─react-fs
+├─react-interactions
+├─react-pg
+├─react-refresh
+├─react-client
+├─react-server
+├─react-server-dom-relay
+├─react-server-dom-webpack
+├─react-server-native-relay
+├─react-suspense-test-utils
+├─shared
+├─use-subscription
+```
