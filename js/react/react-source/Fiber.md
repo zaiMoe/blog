@@ -28,7 +28,11 @@ currentFiber.alternate === workInProgressFiber;
 workInProgressFiber.alternate === currentFiber;
 ```
 
-- `rootFiber`: React 应用的根节点通过使 current 指针在不同 `Fiber` 树的 `rootFiber` 间切换来完成 `current Fiber` 树指向的切换。即当 `workInProgress Fiber` 树构建完成交给 `Renderer` 渲染在页面上后，应用根节点的 `current` 指针指向 `workInProgress Fiber树` ，此时 `workInProgress Fiber树` 就变为 `current Fiber树`。
+- `FiberRoot`: 通过 `new FiberRootNode` 生成, 是整个应用的根节点，绑定在真实DOM节点的`_reactRootContainerxxx` 属性上，React 应用的根节点通过使 current 指针在不同 `Fiber` 树的 `rootFiber` 间切换来完成 `current Fiber` 树指向的切换。即当 `workInProgress Fiber` 树构建完成交给 `Renderer` 渲染在页面上后，应用根节点的 `current` 指针指向 `workInProgress Fiber树` ，此时 `workInProgress Fiber树` 就变为 `current Fiber树`。
+
+- `RootFiber`: 指的是根节点对应的 `FiberNode`，与 `App`、`div` 等都有对应的 `Fiber` 节点，在每次重新渲染的时候会重新构建。
+
+![](./imgs/FiberRoot%26RootFiber.webp)
 
 ## jsx 与 Fiber 节点
 
@@ -44,7 +48,7 @@ const ReactLink = () => {
 console.log(<ReactLink/>)
 ```
 
-上面函数式组件执行后返回的 `React Component` 结构：
+上面函数式组件执行后返回的 `React Component` 结构：java
 
 ![](./imgs/fun-component.png)
 
@@ -66,3 +70,7 @@ console.log(<ReactLink/>)
 所以，在组件 `mount` 时，`Reconciler` 根据 `JSX` 描述的组件内容生成组件对应的Fiber节点。
 
 在 `update` 时，`Reconciler` 将 JSX 与 Fiber 节点保存的数据对比，生成组件对应的 `Fiber` 节点，并根据对比结果为 `Fiber` 节点打上标记。
+
+## 参考
+
+- [React18 为什么要用 createRoot 取代 render](https://juejin.cn/post/7022178828684361736)
