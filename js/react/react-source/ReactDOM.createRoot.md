@@ -9,13 +9,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // 这里采用的是并发模式创建
 createRootImpl(container, options /* 此时是 undefined */);
 
+// packages/react-dom/src/client/ReactDOMRoot.js
 createRoot() {
 
 
     // 相当于 createFiberRoot，创建一个并发模式的 fiberRoot 给 root
     const root = createContainer(
         container,
-        ConcurrentRoot, // 1
+        ConcurrentRoot, // 1，代表根节点
         null,
         isStrictMode, // false
         concurrentUpdatesByDefaultOverride, // false
@@ -27,13 +28,14 @@ createRoot() {
     // 将创建的root.current挂载到container的`__reactContainer$${randomKey}`属性上
     markContainerAsRoot(root.current, container);
 
-    // 在根节点上监听各种事件，如click、scroll，见下1.2
+    // 在根节点上进行事件委托处理，如click、scroll，见下1.2
     listenToAllSupportedEvents(container);
 
     // this._internalRoot = internalRoot; 没有其他逻辑
     return new ReactDOMRoot(root);
 }
 
+// packages/react-reconciler/src/ReactFiberRoot.old.js
 createFiberRoot () {
 
     // 创建一个 FiberRootNode 
@@ -76,6 +78,7 @@ createFiberRoot () {
     return root;
 }
 
+// packages/react-reconciler/src/ReactFiber.old.js
 createHostRootFiber () {
 
     // mode = 1, dev & 开启 devtool 时，mode = 3
@@ -111,6 +114,8 @@ function FiberRootNode(
 ![](./imgs/FiberRoot%26RootFiber.webp)
 
 ### 1.2 listenToAllSupportedEvents
+
+- [合成事件](https://reactjs.org/docs/events.html)
 
 ```jsx
 function App() {

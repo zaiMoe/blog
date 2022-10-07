@@ -5,9 +5,10 @@
 
 ## Fiber 的含义
 
-1. react15 递归的调用方式，成为 `stack Reconfiler`， react16 的 `Reconciler` 基于 `Fiber 节点` 实现，被称为 `Fiber Reconciler
-2. 作为静态的数据结构来说，每个 `Fiber 节点` 对应一个 `React element`，保存了该组件的类型 （函数式组件/类组件/原生组件/...) 、对应的 Dom节点 等信息
-3. 作为动态的单元来说，每个 `Fiber 节点` 保存了本次更新中该组件改变的状态、要执行的工作
+1. `Fiber` 节点用于存储 React 组件节点信息（包括 DOM节点，组件的属性 / state / effect 等）
+2. react15 递归的调用方式，成为 `stack Reconfiler`， react16 的 `Reconciler` 基于 `Fiber 节点` 实现，被称为 `Fiber Reconciler
+3. 作为静态的数据结构来说，每个 `Fiber 节点` 对应一个 `React element`，保存了该组件的类型 （函数式组件/类组件/原生组件/...) 、对应的 Dom节点 等信息
+4. 作为动态的单元来说，每个 `Fiber 节点` 保存了本次更新中该组件改变的状态、要执行的工作
 
 ## Fiber的结构
 
