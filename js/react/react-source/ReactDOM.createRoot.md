@@ -20,7 +20,7 @@ createRoot() {
         null,
         isStrictMode, // false
         concurrentUpdatesByDefaultOverride, // false
-        identifierPrefix, // ''.
+        identifierPrefix, // 空字符 ''
         onRecoverableError, // 报错函数，默认console.error
         transitionCallbacks // null
     )
