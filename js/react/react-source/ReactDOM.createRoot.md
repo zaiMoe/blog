@@ -83,7 +83,7 @@ createHostRootFiber () {
 
     // mode = 1, dev & 开启 devtool 时，mode = 3
     // 创建一个 FiberNode 节点
-    return createFiber(HostRoot /* 3 */, null, null, mode);
+    return createFiber(HostRoot /* 3 */, null, null, mode); // 同个文件
 }
 
 
@@ -107,7 +107,7 @@ function FiberRootNode(
 
 ### 1.1 `fiberRoot` 和 `rootFiber` 的关系
 
-- `FiberRoot`: 通过 `new FiberRootNode` 生成, 是整个应用的根节点，绑定在真实DOM节点的`_reactRootContainerxxx` 属性上，React 应用的根节点通过使 current 指针在不同 `Fiber` 树的 `rootFiber` 间切换来完成 `current Fiber` 树指向的切换。即当 `workInProgress Fiber` 树构建完成交给 `Renderer` 渲染在页面上后，应用根节点的 `current` 指针指向 `workInProgress Fiber树` ，此时 `workInProgress Fiber树` 就变为 `current Fiber树`。
+- `FiberRoot`: 通过 `new FiberRootNode` 生成（属于 `react-reconciler`）, 是整个应用的根节点，绑定在真实DOM节点的`_reactRootContainerxxx` 属性上，React 应用的根节点通过使 current 指针在不同 `Fiber` 树的 `rootFiber` 间切换来完成 `current Fiber` 树指向的切换。即当 `workInProgress Fiber` 树构建完成交给 `Renderer` 渲染在页面上后，应用根节点的 `current` 指针指向 `workInProgress Fiber树` ，此时 `workInProgress Fiber树` 就变为 `current Fiber树`。
 
 - `RootFiber`: 指的是根节点对应的 `FiberNode`，与 `App`、`div` 等都有对应的 `Fiber` 节点，在每次重新渲染的时候会重新构建。
 
