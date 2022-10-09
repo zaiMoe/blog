@@ -71,3 +71,41 @@ updateContainer () {
     return lane;
 }
 ```
+
+### requestUpdateLane
+
+```tsx
+// packages/react-reconciler/src/ReactFiberWorkLoop.old.js
+export function requestUpdateLane(fiber: Fiber): Lane {
+  // Special cases
+  const mode = fiber.mode;
+  if ((mode & ConcurrentMode) === NoMode) {
+    return (SyncLane: Lane);
+  } else if (
+    !deferRenderPhaseUpdateToNextBatch &&
+    (executionContext & RenderContext) !== NoContext &&
+    workInProgressRootRenderLanes !== NoLanes
+  ) {
+    return pickArbitraryLane(workInProgressRootRenderLanes);
+  }
+
+  const isTransition = requestCurrentTransition() !== NoTransition;
+  if (isTransition) {
+    /* DEV */
+
+    if (currentEventTransitionLane === NoLane) {
+      currentEventTransitionLane = claimNextTransitionLane();
+    }
+    return currentEventTransitionLane;
+  }
+
+  const updateLane: Lane = (getCurrentUpdatePriority(): any);
+  if (updateLane !== NoLane) {
+    return updateLane;
+  }
+
+  const eventLane: Lane = (getCurrentEventPriority(): any);
+  return eventLane;
+}
+
+```

@@ -52,6 +52,7 @@ createFiberRoot () {
     // rootFiber.stateNode指向FiberRoot，可通过stateNode.containerInfo取到对应的dom根节点div#root
     uninitializedFiber.stateNode = root;
 
+    // 初始化 RootFiber 的 memoizedState
     if (enableCache) {
         const initialCache = createCache();
         retainCache(initialCache);
@@ -72,7 +73,7 @@ createFiberRoot () {
         uninitializedFiber.memoizedState = initialState;
     }       
 
-    // 
+    // 初始化 RootFiber 的 updateQueue
     initializeUpdateQueue(uninitializedFiber);
 
     return root;
