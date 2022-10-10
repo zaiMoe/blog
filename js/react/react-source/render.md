@@ -2,6 +2,10 @@
 
 ```jsx
 
+// react 18 已废弃，与 react 17 的工作方式完全相同，称为 Legacy Root
+ReactDOM.render(<App/>, root)
+
+// react 18 新功能开启，同时将 FiberRoot 提供给用户，每次需要重新渲染是可以直接 调用 root.render，而 root 是不会变化的。
 root.render(
   <React.StrictMode>
     <App />
@@ -109,3 +113,7 @@ export function requestUpdateLane(fiber: Fiber): Lane {
 }
 
 ```
+
+## 参考
+
+- [Replacing render with createRoot](https://juejin.cn/post/6992435557456412709)
