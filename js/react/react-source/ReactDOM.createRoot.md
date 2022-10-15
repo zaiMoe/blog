@@ -74,6 +74,15 @@ createFiberRoot () {
     }       
 
     // 初始化 RootFiber 的 updateQueue
+    /*
+    fiber.updateQueue = {
+      baseState: fiber.memoizedState,
+      firstBaseUpdate: null,
+      lastBaseUpdate: null,
+      callbacks: null,
+      shared: {pending, lanes, hiddenCallbacks}
+    }
+    */
     initializeUpdateQueue(uninitializedFiber);
 
     return root;
