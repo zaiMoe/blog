@@ -37,6 +37,8 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 ## 名词解释
 
 - [Scheduler](https://github.com/facebook/react/tree/v18.2.0/packages/scheduler)（调度器）—— 调度任务的优先级，高优任务优先进入Reconciler，react 16 新增
+  - 在Scheduler中的每的每个任务的优先级使用过期时间表示的，如果一个任务的过期时间离现在很近，说明它马上就要过期了，优先级很高，如果过期时间很长，那它的优先级就低，没有过期的任务存放在timerQueue中，过期的任务存放在taskQueue中，timerQueue和timerQueue都是小顶堆，所以peek取出来的都是离现在时间最近也就是优先级最高的那个任务，然后优先执行它。
+
 - [Reconciler](https://github.com/facebook/react/tree/v18.2.0/packages/react-reconciler)（协调器）—— 负责找出变化的组件进行更新, 工作的阶段被称为 `render` 阶段。因为在该阶段会调用组件的render方法。，每当有更新发生时，`Reconciler` 会做如下工作（更多可以看[官方文档](https://zh-hans.reactjs.org/docs/codebase-overview.html#reconcilers)的介绍）：
   - 调用函数组件、或class组件的render方法，将返回的JSX转化为虚拟DOM
   - 将虚拟DOM和上次更新时的虚拟DOM对比
@@ -48,6 +50,10 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
   - [ReactTest](https://github.com/facebook/react/tree/v18.2.0/packages/react-test-renderer) 渲染器，渲染出纯Js对象用于测试
   - [ReactArt](https://github.com/facebook/react/tree/v18.2.0/packages/react-art) 渲染器，渲染到Canvas, SVG 或 VML (IE8)
 - `render` 与 `commit` 阶段统称为 `work` ，即 React 在工作中。相对应的，如果任务正在 `Scheduler` 内调度，就不属于 `work` 。
+
+### lane 模型
+
+
 
 ## 不常用 api 说明
 
