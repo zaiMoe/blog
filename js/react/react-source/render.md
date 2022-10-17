@@ -224,3 +224,4 @@ export const OffscreenLane: Lane = /*                   */ 0b1000000000000000000
 ## 参考
 
 - [Replacing render with createRoot](https://juejin.cn/post/6992435557456412709)
+- [React 为什么使用 Lane 技术方案](https://juejin.cn/post/6951206227418284063)
