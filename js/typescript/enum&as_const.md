@@ -112,44 +112,44 @@ const z2 = {text: "hello"}; // ✅ Type '{ text: string }'
 
 1. `enum` 声明的类型，能使用其成员作为**类型**或所有成员的**联合类型**，如
 
-```typescript
-enum Colors {
-    green = '#0f0',
-    blue = '#00f',
-}
+    ```typescript
+    enum Colors {
+        green = '#0f0',
+        blue = '#00f',
+    }
 
-let color: Colors;
-color = Colors.blue; // ✅ ok
-color = '#00f'; // ❌ Type '"#00f"' is not assignable to type 'Color'
-```
+    let color: Colors;
+    color = Colors.blue; // ✅ ok
+    color = '#00f'; // ❌ Type '"#00f"' is not assignable to type 'Color'
+    ```
 
 2. 如果用 `const` 来达到同样的效果：
 
-```typescript
-const colors = {
-    green: '#0f0',
-    blue: '#00f',
-} as const
+    ```typescript
+    const colors = {
+        green: '#0f0',
+        blue: '#00f',
+    } as const
 
-// 联合类型
-type Colors = (typeof colors)[keyof typeof colors];
-let color: Colors;
-color = '#00f'; // ✅ ok
-color = colors.blue; // ✅ ok
-color = colors.green; // ✅ ok
-color = '#333';// ❌ Type '"#333"' is not assignable to type 'Colors'.
+    // 联合类型
+    type Colors = (typeof colors)[keyof typeof colors];
+    let color: Colors;
+    color = '#00f'; // ✅ ok
+    color = colors.blue; // ✅ ok
+    color = colors.green; // ✅ ok
+    color = '#333';// ❌ Type '"#333"' is not assignable to type 'Colors'.
 
-// 单个成员类型
-namespace Color {
-    export type green = typeof colors.green;
-    export type blue = typeof colors.blue;
-}
+    // 单个成员类型
+    namespace Color {
+        export type green = typeof colors.green;
+        export type blue = typeof colors.blue;
+    }
 
-let color2: Color.blue;
-color2 = colors.green; // ❌ Type '"#0f0"' is not assignable to type '"#00f"'.
-color2 = '#00f'; // ✅ ok
-color2 = colors.blue; // ✅ ok
-```
+    let color2: Color.blue;
+    color2 = colors.green; // ❌ Type '"#0f0"' is not assignable to type '"#00f"'.
+    color2 = '#00f'; // ✅ ok
+    color2 = colors.blue; // ✅ ok
+    ```
 
 #### 总结
 
