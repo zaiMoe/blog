@@ -22,8 +22,6 @@ ReactDOMHydrationRoot.prototype.render = ReactDOMRoot.prototype.render = functio
         throw new Error('Cannot update an unmounted root.');
     }
 
-    /* DEV 环境的校验 */
-
     // 执行更新
     updateContainer(children, root, null, null);
 }
