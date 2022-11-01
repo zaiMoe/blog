@@ -43,3 +43,30 @@ console.log(g()); // this 指向 window，如果没有 this: MyClass 则不会�
 
 - [this-parameters、this-types](https://www.typescriptlang.org/docs/handbook/2/classes.html#this-parameters)
 - [详解Typescript里的This](https://zhuanlan.zhihu.com/p/104565681)
+
+## 扩展一个第三库的类型声明
+
+例如想将项目中的 `RouteConfig` 和 一些菜单配置合并在一起，同时兼容 `RouteConfig` 原本的类型
+
+```typescript
+import type { RouteConfig } from 'react-router-config' 
+
+export const routerConfig: RouteConfig[] = [     
+  {         
+    path: '/xxx',         
+    meta: {} // error， 类型不存在，如何扩展     
+  } 
+] 
+```
+
+```typescript
+// global.d.ts
+import { RouteConfig } from 'react-router-config' 
+interface RouteMeta {     title: string } 
+
+declare module 'react-router-config' {     
+  interface RouteConfig {         
+    meta?: RouteMeta;     
+  }
+} 
+```
