@@ -70,3 +70,29 @@ declare module 'react-router-config' {
   }
 } 
 ```
+
+## 函数式组件的泛型写法
+
+```tsx
+import React, { FC } from 'react';
+
+export interface Base {
+    id: number | string;
+}
+
+export interface TableProps<T extends Base> {
+    list: T[]
+}
+
+export const Table = <T extends Base>({ list }: TableProps<T>) => (
+    <table>
+        {list.map(({ id }) => (
+            <tr key={id}></tr>
+        ))}
+    </table>
+);
+
+// 断言箭头函数为 FC，否则此处无法提示函数组件的 React 专用属性
+(Table as FC).displayName = 'Table';
+
+```
