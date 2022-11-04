@@ -184,3 +184,4 @@ function HelloWorldComponent() {
 - [「译文」：CSS-in-JS 你所应该知道的一切](https://juejin.cn/post/6844903873962835982)
 - [React拾遗：从10种现在流行的 CSS 解决方案谈谈我的最爱 （上）](https://juejin.cn/post/6844903633109139464)
 - [中后台 CSS Modules 最佳实践](https://juejin.cn/post/7097312790511091719)
+- [「译」为什么我们正在放弃 CSS-in-JS](https://juejin.cn/post/7158712727538499598)
