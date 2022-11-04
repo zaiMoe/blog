@@ -1,5 +1,13 @@
 # render 阶段
 
+## 概念
+
+- v16: Async Mode (异步模式)
+- v17: Concurrent Mode (并发模式)
+- v18: Concurrent Render (并发更新)
+
+## 源码解析
+
 ```jsx
 
 // react 18 已废弃，与 react 17 的工作方式完全相同，称为 Legacy Root
