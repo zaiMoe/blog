@@ -51,7 +51,20 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
   - [ReactArt](https://github.com/facebook/react/tree/v18.2.0/packages/react-art) 渲染器，渲染到Canvas, SVG 或 VML (IE8)
 - `render` 与 `commit` 阶段统称为 `work` ，即 React 在工作中。相对应的，如果任务正在 `Scheduler` 内调度，就不属于 `work` 。
 
-### lane 模型
+### 优先级模型
+
+`Concurrent Mode` 模式下的更新是异步可中断的更新，除了时间片用完，还有一种中断的可能：正在更新的任务被中断，转而开始一次新的更新。我们可以说后一次的更新打断了正在执行的更新，这就是优先级的概念：后一次任务的优先级更高，打断了正在执行的更低优先级的任务。
+
+#### expirationTime 模型
+
+即过期时间，在 Fiber 中有两层不同的含义，注意区分：
+
+- 解决调度中经典的饥饿（Starvation）问题，假设高优先级任务一直执行，低优先级任务将无法得到执行，我们给低优先级任务设定一个过期时间，一旦过期后，就需要被当做同步任务，立即执行，这与 requestIdleCallback 中的 didTimeout 是异曲同工的。
+- 代表 update 优先级，expiration time 越大，优先级越高，如果你在其它资料中阅读到 expiration time 越小优先级越高，不要感到诧异，因为这块有过变更。
+
+#### Lane (s) 模型
+
+Lane (s) 模型是从源码角度来定义的。官方的定义详见 [React v17.0 rc](https://zh-hans.reactjs.org/blog/2020/08/10/react-v17-rc.html) 版本发布，发布里提到的” 改进启发式更新算法 “其实就是替换了优先级模型 – Lane (s) 模型，可见 [PR](https://github.com/facebook/react/pull/18796)。
 
 ## 不常用 api 说明
 

@@ -2,9 +2,10 @@
 
 ## 概念
 
-- v16: Async Mode (异步模式)
-- v17: Concurrent Mode (并发模式)
-- v18: Concurrent Render (并发更新)
+- v16之前: Legacy Mode，同步地进行Reconcile Fiber，Reconcile任务不能被打断，会执行到底
+- v16: Async Mode (异步模式)与 时间分片（Time Slicing）: 后面更名为 `Concurrent Mode`，引入了 Fiber，采用 `requestAnimationFrame` 实现时间分片
+- v17: [Concurrent Mode (并发模式)](https://17.reactjs.org/docs/concurrent-mode-intro.html)
+- v18: Concurrent Render (并发更新)，[example](https://github.com/reactwg/react-18/discussions/65)
 
 ## 源码解析
 
@@ -231,3 +232,4 @@ export const OffscreenLane: Lane = /*                   */ 0b1000000000000000000
 
 - [Replacing render with createRoot](https://juejin.cn/post/6992435557456412709)
 - [React 为什么使用 Lane 技术方案](https://juejin.cn/post/6951206227418284063)
+- [深入剖析 React Concurrent](https://zhuanlan.zhihu.com/p/60307571)
