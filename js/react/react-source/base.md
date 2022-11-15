@@ -112,7 +112,7 @@ react 的 packages 目录
 ├─react-devtools-shell
 ├─react-devtools-timeline
 
-# 其他 略
+# 其他
 ├─react-fetch
 ├─react-fs
 ├─react-interactions
