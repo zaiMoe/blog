@@ -1,12 +1,5 @@
 # render 阶段
 
-## 概念
-
-- v16之前: Legacy Mode，同步地进行Reconcile Fiber，Reconcile任务不能被打断，会执行到底
-- v16: Async Mode (异步模式)与 时间分片（Time Slicing）: 后面更名为 `Concurrent Mode`，引入了 Fiber，采用 `requestAnimationFrame` 实现时间分片
-- v17: [Concurrent Mode (并发模式)](https://17.reactjs.org/docs/concurrent-mode-intro.html)
-- v18: Concurrent Render (并发更新)，[example](https://github.com/reactwg/react-18/discussions/65)
-
 ## 源码解析
 
 ```jsx

@@ -53,7 +53,16 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
 ### 优先级模型
 
+## 概念
+
+- v16之前: Legacy Mode，同步地进行Reconcile Fiber，Reconcile任务不能被打断，会执行到底
+- v16: Async Mode (异步模式)与 时间分片（Time Slicing）: 后面更名为 `Concurrent Mode` （同步模式），引入了 Fiber，采用 `requestAnimationFrame` 实现时间分片
+- v17: [Concurrent Mode (并发模式)](https://17.reactjs.org/docs/concurrent-mode-intro.html)
+- v18: Concurrent Render (并发更新)，[example](https://github.com/reactwg/react-18/discussions/65)
+
 `Concurrent Mode` 模式下的更新是异步可中断的更新，除了时间片用完，还有一种中断的可能：正在更新的任务被中断，转而开始一次新的更新。我们可以说后一次的更新打断了正在执行的更新，这就是优先级的概念：后一次任务的优先级更高，打断了正在执行的更低优先级的任务。
+
+> 如何理解 `Concurrent` 同步？
 
 #### expirationTime 模型
 
@@ -61,6 +70,12 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
 - 解决调度中经典的饥饿（Starvation）问题，假设高优先级任务一直执行，低优先级任务将无法得到执行，我们给低优先级任务设定一个过期时间，一旦过期后，就需要被当做同步任务，立即执行，这与 requestIdleCallback 中的 didTimeout 是异曲同工的。
 - 代表 update 优先级，expiration time 越大，优先级越高，如果你在其它资料中阅读到 expiration time 越小优先级越高，不要感到诧异，因为这块有过变更。
+
+在 React 内部是这样划分的优先级：
+
+- Sync 具有最高优先级
+- 异步方面，优先级分为 InteractiveExpiration 与 AsyncExpiration，同等时刻触发的 InteractiveExpiration 的优先级大于 AsyncExpiration
+- InteractiveExpiration 一般指在 InteractiveEvent 中触发的更新，例如：blur, click, focus，keyDown, mouseDown 等等
 
 #### Lane (s) 模型
 
