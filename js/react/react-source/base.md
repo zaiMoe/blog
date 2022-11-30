@@ -178,4 +178,4 @@ react 的 packages 目录
 
     ![](./imgs/react-debugger.png)
 
-4. 这里不用按照文章所写的，通过 webapck 的 `external` 配置处理，在当前的 `create-react-app` 中引入了 [source-map-loader](https://webpack.docschina.org/loaders/source-map-loader/)，该 loader 会在 webpack 编译时，将第三方库的 source-map 也一起处理。
+4. 这里不用按照文章所写的，通过 webapck 的 `external` 配置处理，在当前的 `create-react-app` 中引入了 [source-map-loader](https://webpack.docschina.org/loaders/source-map-loader/)，该 loader 会在 webpack 编译时
