@@ -75,7 +75,13 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
 #### 时间切片
 
-本质是为了模拟 `requestIdelCallback` 实现 JS 任务执行和浏览器渲染合理分配的运行在每一帧上，达到 react 渲染过程不堵塞 UI 的渲染。
+方案：
+
+1. `requestIdleCallback` (rIC)，浏览器 API: 一帧的执行时间存在偏差，导致工作执行不稳定；浏览器兼容不好，其中 safari 浏览器根本不支持它。
+2. `requestAnimationFrame` (rAF) + `MessageChannel`，React 旧方案:
+3. 高频短间隔调度任务，React 新方案
+
+本质是为了模拟 `requestIdelCallback` (rIC) 实现 JS 任务执行和浏览器渲染合理分配的运行在每一帧上，达到 react 渲染过程不堵塞 UI 的渲染。
 
 在刚执行完一个时间切片准备执行下一个时间切片前，React能够：
 
