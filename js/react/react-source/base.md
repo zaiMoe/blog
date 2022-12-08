@@ -81,7 +81,7 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 2. `requestAnimationFrame` (rAF) + `MessageChannel`，React 旧方案:
 3. 高频短间隔调度任务，React 新方案
 
-本质是为了模拟 `requestIdelCallback` (rIC) 实现 JS 任务执行和浏览器渲染合理分配的运行在每一帧上，达到 react 渲染过程不堵塞 UI 的渲染。
+本质是实现 JS 任务执行和浏览器渲染合理分配的运行在每一帧上，达到 react 渲染过程不堵塞 UI 的渲染。
 
 在刚执行完一个时间切片准备执行下一个时间切片前，React能够：
 
