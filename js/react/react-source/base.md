@@ -77,7 +77,7 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
 方案：
 
-1. `requestIdleCallback` (rIC)，浏览器 API: 一帧的执行时间存在偏差，导致工作执行不稳定；浏览器兼容不好，其中 safari 浏览器根本不支持它。
+1. `requestIdleCallback` (rIC)，浏览器 API: 一帧的执行时间存在偏差，导致工作执行不稳定(无交互可能为 49.9ms，有交互可能为 16.6ms)；浏览器兼容不好，其中 safari 浏览器根本不支持它。
 2. `requestAnimationFrame` (rAF) + `MessageChannel`，React 旧方案:
 3. 高频短间隔调度任务，React 新方案
 
