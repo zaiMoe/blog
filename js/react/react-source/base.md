@@ -77,9 +77,9 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
 方案：
 
-1. `requestIdleCallback` (rIC)，浏览器 API: 一帧的执行时间存在偏差，导致工作执行不稳定(无交互可能为 49.9ms，有交互可能为 16.6ms)；浏览器兼容不好，其中 safari 浏览器根本不支持它。
-2. `requestAnimationFrame` (rAF) + `MessageChannel`，React 旧方案:
-3. 高频短间隔调度任务，React 新方案
+1. `requestIdleCallback` (rIC)，浏览器 API: 一帧的执行时间存在偏差，导致工作执行不稳定(无交互可能为 49.9ms，有交互可能为 16.6ms)；requestIdleCallback不会和帧对齐（不应该期望每帧都会调用此回调，在空闲状态下，requestIdleCallback(callback) 回调函数的执行间隔是 50ms（W3C规定），也就是 20FPS，1秒内执行20次，肯定是不行的。）;浏览器兼容不好，其中 safari 浏览器根本不支持它。
+2. `requestAnimationFrame` (rAF) + `postMessage`，React 旧方案（v16）: rAF 依赖设备的运行流程，通常与浏览器屏幕刷新次数相匹配，而且 rAF 会在重绘前执行，有可能会在页面更新前调用两次任务（第一次是直接调用，最后又调用了 rAF）
+3. 高频短间隔调度任务 + `MessageChannel`，React 新方案：`MessageChannel` 相比  `setTimeout(fn, 0)` 不会有 4ms 的时间间隔限制
 
 本质是实现 JS 任务执行和浏览器渲染合理分配的运行在每一帧上，达到 react 渲染过程不堵塞 UI 的渲染。
 
@@ -92,6 +92,8 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
 1. 在执行任务过程中，不阻塞用户与页面交互，立即响应交互事件和需要执行的代码
 2. 实现高优先级插队
+
+- [React 之 requestAnimationFrame 执行机制探索](https://juejin.cn/post/7165780929439334437)
 
 #### expirationTime 模型
 
