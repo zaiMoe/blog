@@ -75,12 +75,6 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
 #### 时间切片
 
-方案：
-
-1. `requestIdleCallback` (rIC)，浏览器 API: 一帧的执行时间存在偏差，导致工作执行不稳定(无交互可能为 49.9ms，有交互可能为 16.6ms)；requestIdleCallback不会和帧对齐（不应该期望每帧都会调用此回调，在空闲状态下，requestIdleCallback(callback) 回调函数的执行间隔是 50ms（W3C规定），也就是 20FPS，1秒内执行20次，肯定是不行的。）;浏览器兼容不好，其中 safari 浏览器根本不支持它。
-2. `requestAnimationFrame` (rAF) + `postMessage`，React 旧方案（v16）: rAF 依赖设备的运行流程，通常与浏览器屏幕刷新次数相匹配，而且 rAF 会在重绘前执行，有可能会在页面更新前调用两次任务（第一次是直接调用，最后又调用了 rAF）
-3. 高频短间隔调度任务 + `MessageChannel`，React 新方案：`MessageChannel` 相比  `setTimeout(fn, 0)` 不会有 4ms 的时间间隔限制
-
 本质是实现 JS 任务执行和浏览器渲染合理分配的运行在每一帧上，达到 react 渲染过程不堵塞 UI 的渲染。
 
 在刚执行完一个时间切片准备执行下一个时间切片前，React能够：
@@ -93,6 +87,13 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 1. 在执行任务过程中，不阻塞用户与页面交互，立即响应交互事件和需要执行的代码
 2. 实现高优先级插队
 
+方案：
+
+1. `requestIdleCallback` (rIC)，浏览器 API: 能在浏览器空闲时期执行一个函数，一帧的执行时间存在偏差，导致工作执行不稳定(无交互可能为 49.9ms，有交互可能为 16.6ms)；requestIdleCallback不会和帧对齐（不应该期望每帧都会调用此回调，在空闲状态下，requestIdleCallback(callback) 回调函数的执行间隔是 50ms（W3C规定），也就是 20FPS，1秒内执行20次，肯定是不行的。）; 浏览器兼容不好，其中 safari 浏览器根本不支持它。
+2. `requestAnimationFrame` (rAF) + `postMessage`，[React 旧方案（v16）](https://github.com/facebook/react/blob/v16.0.0/src/renderers/shared/ReactDOMFrameScheduling.js#L84): rAF 依赖设备的运行流程，通常与浏览器屏幕刷新次数相匹配，而且 rAF 会在重绘前执行，有可能会在页面更新前调用两次任务（第一次是直接调用，最后又调用了 rAF）, 本质是为了模拟 `requestIdleCallback`，在浏览器完成渲染之后，在执行 ract 的任务。这种方式会占用剩余的所有的时间，例如 react 在 16 中定义的一帧  33ms（保证30fps） 来看，会在时间结束前一直一直执行 react 的任务，可能会导致无法继续响应浏览器任务，并且 `requestAnimationFrame` 运行在后台标签页或者隐藏的 `<iframe>` 里时，`requestAnimationFrame()` 会被暂停调用以提升性能和电池寿命
+3. 高频短间隔调度任务 + `MessageChannel` (message loop)，React 新方案：`MessageChannel` 相比  `setTimeout(fn, 0)` 不会有 4ms 的时间间隔限制
+
+- [来深入了解下 requestIdleCallback 呗 ？](https://juejin.cn/post/7033959714794766372)
 - [React 之 requestAnimationFrame 执行机制探索](https://juejin.cn/post/7165780929439334437)
 
 #### expirationTime 模型
