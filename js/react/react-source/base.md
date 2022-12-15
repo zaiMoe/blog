@@ -103,7 +103,7 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 即过期时间，在 Fiber 中有两层不同的含义，注意区分：
 
 - 解决调度中经典的饥饿（Starvation）问题，假设高优先级任务一直执行，低优先级任务将无法得到执行，我们给低优先级任务设定一个过期时间，一旦过期后，就需要被当做同步任务，立即执行，这与 requestIdleCallback 中的 didTimeout 是异曲同工的。
-- 代表 update 优先级，expiration time 越大，优先级越高，如果你在其它资料中阅读到 expiration time 越小优先级越高，不要感到诧异，因为这块有过变更。
+- 代表 update 优先级，expiration time 越大，优先级越高，会优先执行。如果你在其它资料中阅读到 expiration time 越小优先级越高，不要感到诧异，因为这块有过变更。
 
 在 React 内部是这样划分的优先级：
 
