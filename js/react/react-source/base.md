@@ -111,12 +111,15 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 - 异步方面，优先级分为 InteractiveExpiration 与 AsyncExpiration，同等时刻触发的 InteractiveExpiration 的优先级大于 AsyncExpiration
 - InteractiveExpiration 一般指在 InteractiveEvent 中触发的更新，例如：blur, click, focus，keyDown, mouseDown 等等
 
+![](./img/../imgs/expirationTime-y.png)
+
 #### Lane (s) 模型
 
 Lane (s) 模型是从源码角度来定义的。官方的定义详见 [React v17.0 rc](https://zh-hans.reactjs.org/blog/2020/08/10/react-v17-rc.html) 版本发布，发布里提到的” 改进启发式更新算法 “其实就是替换了优先级模型 – Lane (s) 模型，可见 [PR](https://github.com/facebook/react/pull/18796)。
 
 ## 不常用 api 说明
 
+11
 > <https://zh-hans.reactjs.org/docs/react-api.html#suspense>
 
 - useDeferredValue
