@@ -113,9 +113,18 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
 ![](./img/../imgs/expirationTime-y.png)
 
+expirationTime 的计算比较复杂，在 18 版本已经换成了 lane 模型。
+
+- [一文吃透 React Expiration Time](https://juejin.cn/post/7051560069401411615)
+- [React17新特性：启发式更新算法](https://juejin.cn/post/6860275004597239815)
+
+例如上面提到的缺陷，「高优先级 IO 任务」阻塞了「低优先级 CPU 任务」 的情况(如果一个任务会引起 Suspense 下子组件抛出 thenable 对象，那么它就是 IO 任务)，会使得一些低优先级的任务一直被中断无法执行，使得UI无法得到更新
+
 #### Lane (s) 模型
 
 Lane (s) 模型是从源码角度来定义的。官方的定义详见 [React v17.0 rc](https://zh-hans.reactjs.org/blog/2020/08/10/react-v17-rc.html) 版本发布，发布里提到的” 改进启发式更新算法 “其实就是替换了优先级模型 – Lane (s) 模型，可见 [PR](https://github.com/facebook/react/pull/18796)。
+
+- [React 为什么使用 Lane 技术方案](https://juejin.cn/post/6951206227418284063)
 
 ## 不常用 api 说明
 
