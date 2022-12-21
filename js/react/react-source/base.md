@@ -113,31 +113,40 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 
 ![](./img/../imgs/expirationTime-y.png)
 
-计算的伪代码：
+[源代码在这](https://github.com/facebook/react/blob/v16.8.6/packages/react-reconciler/src/ReactFiberExpirationTime.js)，计算的伪代码：
 
 ```js
 const update;
-update.expirationTime = MAX_INT_31 - (currentTime + delayTimeByTaskPriority);
+update.expirationTime = currentTime + delayTimeByTaskPriority;
 ```
 
-- MAX_INT_31: 二进制的最大整数
 - currentTime: 以毫秒为单位表示当前时间
-- delayTimeByTaskPriority: 任务优先级对应的延迟时间
+- delayTimeByTaskPriority: 任务优先级对应的延迟时间，例如（不正确，计算过程比较复杂）：
+  - 普通异步: 500ms，时间单元 25
+  - InteractiveExpiration: 50ms，时间单元 10
+- 时间单元: 在这个时间单元内计算出来的 Expiration-Time 都是一样的,这样更新会被合并，支持 `batchedUpdates`
 
-每次 `Fiber Reconciler` 调度更新时，会在所有 `fiber` 节点的所有 `update.expirationTimes`中选择一个 `expirationTimes`（一般选择最大的），作为本次更新的优先级。并从根fiber节点开始向下构建新的fiber树。构建过程中如果某个fiber节点包含update，且
+每次 `Fiber Reconciler` 调度更新时，会在所有 `fiber` 节点的所有 `update.expirationTimes`中选择一个 `expirationTimes`（一般选择最大的），作为本次更新的优先级。并从根fiber节点开始向下构建新的fiber树。构建过程中如果某个fiber节点包含update，且没有超过过期时间（可能是在多帧以后的过期时间，如低优先级的异步任务）
 
 ```js
-update.expirationTimes >= expirationTimes
+update.expirationTimes >= nextFrameTime
+
+/*
+nextFrameTime: 等于 requestAnimationFrame 传入的 callback 开始执行时间 + 33ms （30fps），表示当前帧结束时间
+*/
 ```
 
 则该 `update` 对应的 `state` 变化会体现在本次更新中。
+
+expirationTime的缺陷:
+如果只考虑中断/继续这样的CPU操作，以expirationTimes大小作为衡量优先级依据的模型可以很好工作。
+
+但对于「高优先级 IO 任务」（Suspense），会一直阻塞了「低优先级 CPU 任务」 的情况(如一个任务会引起 Suspense 下子组件抛出 thenable 对象，那么它就是 IO 任务)，会使得一些低优先级的任务一直被中断无法执行，使得 UI 无法得到更新（例如 setState 更新了，但一直被 Suspense 堵塞）
 
 参考：
 
 - [一文吃透 React Expiration Time](https://juejin.cn/post/7051560069401411615)
 - [React17新特性：启发式更新算法](https://juejin.cn/post/6860275004597239815)
-
-例如上面提到的缺陷，「高优先级 IO 任务」阻塞了「低优先级 CPU 任务」 的情况(如一个任务会引起 Suspense 下子组件抛出 thenable 对象，那么它就是 IO 任务)，会使得一些低优先级的任务一直被中断无法执行，使得UI无法得到更新
 
 #### Lane (s) 模型
 
