@@ -80,20 +80,20 @@ react 的解决方案是采用 Suspense 与配套的 hooks - useDeferredValue
 在刚执行完一个时间切片准备执行下一个时间切片前，React能够：
 
 1. 判断是否有用户界面交互事件和其他需要执行的代码，比如点击事件，有的话则执行该事件
-2. 判断是否有优先级更高的任务需要执行，如果有，则中断当前任务，执行更高的优先级任务。也就是利用时间前片来实现高优先级任务插队。
+2. 判断是否有优先级更高的任务需要执行，如果有，则中断当前任务，执行更高的优先级任务。也就是利用时间切片来实现高优先级任务插队。
 
 即时间切片有两个作用：
 
 1. 在执行任务过程中，不阻塞用户与页面交互，立即响应交互事件和需要执行的代码
-2. 实现高优先级插队
+2. 实现高优先级任务可以插队优先执行
 
 方案：
 
-1. `requestIdleCallback` (rIC)，浏览器 API: 能在浏览器空闲时期执行一个函数，一帧的执行时间存在偏差，导致工作执行不稳定(无交互可能为 49.9ms，有交互可能为 16.6ms)；requestIdleCallback不会和帧对齐（不应该期望每帧都会调用此回调，在空闲状态下，requestIdleCallback(callback) 回调函数的执行间隔是 50ms（W3C规定），也就是 20FPS，1秒内执行20次，肯定是不行的。）; 浏览器兼容不好，其中 safari 浏览器根本不支持它。
+1. `requestIdleCallback` (rIC)，浏览器 API: 能在浏览器空闲时期执行一个函数，一帧的执行时间存在偏差，导致工作执行不稳定(无交互可能为 49.9ms，有交互可能为 16.6ms，视浏览器空闲而定)；requestIdleCallback不会和帧对齐（不应该期望每帧都会调用此回调，在空闲状态下，requestIdleCallback(callback) 回调函数的执行间隔是 50ms（W3C规定），也就是 20FPS，1秒内执行20次，肯定是不行的。）; 浏览器兼容不好，其中 safari 浏览器根本不支持它。
   ![](./imgs/requestIdleCallback.png)
-2. `requestAnimationFrame` (rAF) + `postMessage`，[React 旧方案（v16）](https://github.com/facebook/react/blob/v16.0.0/src/renderers/shared/ReactDOMFrameScheduling.js#L84): rAF 依赖设备的运行流程，通常与浏览器屏幕刷新次数相匹配，而且 rAF 会在重绘前执行，有可能会在页面更新前调用两次任务（第一次是直接调用，最后又调用了 rAF）, 本质是为了模拟 `requestIdleCallback`，在浏览器完成渲染之后，在执行 ract 的任务。这种方式会占用剩余的所有的时间，例如 react 在 16 中定义的一帧  33ms（保证30fps） 来看，会在时间结束前一直一直执行 react 的任务，可能会导致无法继续响应浏览器任务，并且 `requestAnimationFrame` 运行在后台标签页或者隐藏的 `<iframe>` 里时，`requestAnimationFrame()` 会被暂停调用以提升性能和电池寿命
+2. `requestAnimationFrame` (rAF) + `postMessage`，[React 旧方案（v16）](https://github.com/facebook/react/blob/v16.0.0/src/renderers/shared/ReactDOMFrameScheduling.js#L84): rAF 依赖设备的运行流程，通常与浏览器屏幕刷新次数相匹配，而且 rAF 会在 UI 渲染前执行，然后通过 `postMessage` 定义一个宏任务，在 UI 渲染后在执行。 本质是为了模拟 `requestIdleCallback`，在浏览器完成渲染之后，在执行 react 的任务。这种方式会占用剩余的所有的时间，例如 react 在 16 中定义的一帧  33ms（保证30fps） 来看，会在这一帧剩余时间结束前一直执行 react 的任务，可能会导致无法继续响应浏览器任务，并且 `requestAnimationFrame` 运行在后台标签页或者隐藏的 `<iframe>` 里时，`requestAnimationFrame()` 会被暂停调用以提升性能和电池寿命
   ![](./imgs/requestAnimationFrame.png)
-3. 高频短间隔调度任务 + `MessageChannel` (message loop)，React 新方案：`MessageChannel` 相比  `setTimeout(fn, 0)` 不会有 4ms 的时间间隔限制，此外不使用 rAF，改成采用了 5ms 间隔的宏任务消息事件来发起任务调度，每 5ms 后，就交出线程，让浏览器执行交互任务或者 UI 渲染，之后在重复。
+3. 高频短间隔调度任务 + `MessageChannel` (message loop)，React 新方案：`MessageChannel` 相比  `setTimeout(fn, 0)` 不会有 4ms 的时间间隔限制，此外不使用 rAF，改成采用了 5ms 间隔的宏任务消息事件来发起任务调度，每 5ms 后，就交出线程，用于执行其他的任务，再次空闲且当前帧还有剩余，则继续执行剩余任务，之后在重复。
 
 - [来深入了解下 requestIdleCallback 呗 ？](https://juejin.cn/post/7033959714794766372)
 - [React 之 requestAnimationFrame 执行机制探索](https://juejin.cn/post/7165780929439334437)
