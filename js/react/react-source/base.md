@@ -152,8 +152,6 @@ expirationTime的缺陷:
 
 Lane (s) 模型是从源码角度来定义的。官方的定义详见 [React v17.0 rc](https://zh-hans.reactjs.org/blog/2020/08/10/react-v17-rc.html) 版本发布，发布里提到的” 改进启发式更新算法 “其实就是替换了优先级模型 – Lane (s) 模型，可见 [PR](https://github.com/facebook/react/pull/18796)。
 
-- [React 为什么使用 Lane 技术方案](https://juejin.cn/post/6951206227418284063)
-
 ## 不常用 api 说明
 
 11
