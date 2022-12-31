@@ -164,7 +164,7 @@ export function enqueueUpdate<State>(
 
 ### ExpirationTime
 
-`react 16` 使用 `ExpirationTime` 来表示任务的优先级
+基本概念： 见 [名词解释](./base.md)
 
 ### lane
 
@@ -172,17 +172,22 @@ export function enqueueUpdate<State>(
 // packages/react-reconciler/src/ReactFiberLane.old.js
 export const TotalLanes = 31;
 
+// 没有优先级
 export const NoLanes: Lanes = /*                        */ 0b0000000000000000000000000000000;
 export const NoLane: Lane = /*                          */ 0b0000000000000000000000000000000;
 
+// 同步优先级，表示同步的任务一次只能执行一个，例如：用户的交互事件产生的更新任务
 export const SyncLane: Lane = /*                        */ 0b0000000000000000000000000000001;
 
+// 连续触发优先级，例如：滚动事件，拖动事件等
 export const InputContinuousHydrationLane: Lane = /*    */ 0b0000000000000000000000000000010;
 export const InputContinuousLane: Lane = /*             */ 0b0000000000000000000000000000100;
 
+// 默认优先级，例如使用setTimeout，请求数据返回等造成的更新
 export const DefaultHydrationLane: Lane = /*            */ 0b0000000000000000000000000001000;
 export const DefaultLane: Lane = /*                     */ 0b0000000000000000000000000010000;
 
+// 过度优先级，例如: Suspense、useTransition、useDeferredValue 等拥有的优先级
 const TransitionHydrationLane: Lane = /*                */ 0b0000000000000000000000000100000;
 const TransitionLanes: Lanes = /*                       */ 0b0000000001111111111111111000000;
 const TransitionLane1: Lane = /*                        */ 0b0000000000000000000000001000000;
@@ -202,6 +207,7 @@ const TransitionLane14: Lane = /*                       */ 0b0000000000010000000
 const TransitionLane15: Lane = /*                       */ 0b0000000000100000000000000000000;
 const TransitionLane16: Lane = /*                       */ 0b0000000001000000000000000000000;
 
+// 重试任务
 const RetryLanes: Lanes = /*                            */ 0b0000111110000000000000000000000;
 const RetryLane1: Lane = /*                             */ 0b0000000010000000000000000000000;
 const RetryLane2: Lane = /*                             */ 0b0000000100000000000000000000000;
@@ -219,6 +225,25 @@ export const IdleHydrationLane: Lane = /*               */ 0b0010000000000000000
 export const IdleLane: Lane = /*                        */ 0b0100000000000000000000000000000;
 
 export const OffscreenLane: Lane = /*                   */ 0b1000000000000000000000000000000;
+```
+
+### lane 的使用
+
+通过 `与（&）` 的计算，可以快速筛选出某些 lane 模型，比如 `0110 & InputContinuousHydrationLane` 来筛选出 连续触发优先级 的模型，在 react 中有许多相关的计算：
+
+```typescript
+// packages/react-reconciler/src/ReactFiberLane.old.js
+
+// 判断lanes中是否有未闲置的任务
+export function includesNonIdleWork(lanes: Lanes) {
+  return (lanes & NonIdleLanes) !== NoLanes;
+}
+
+// 判断lanes中是否只包含重试任务
+export function includesOnlyRetries(lanes: Lanes) {
+  return (lanes & RetryLanes) === lanes;
+}
+
 ```
 
 ## 参考
